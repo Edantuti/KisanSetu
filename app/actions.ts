@@ -51,6 +51,40 @@ export const signInAction = async (formData: FormData) => {
 
   return redirect("/protected");
 };
+export const phoneAction = async (formData: FormData) => {
+  const supabase = createClient();
+  const phone = formData.get("phone")?.toString();
+  if (!phone) return;
+  const { error } = await supabase.auth.signInWithOtp({ phone: phone });
+  if (error) {
+    return encodedRedirect("error", "/sign-in", error.message);
+  }
+  return encodedRedirect(
+    "success",
+    "/sign-in",
+    "Verification Code will be send within 60 seconds.",
+  );
+};
+export const verifyOTP = async (formData: FormData) => {
+  const supabase = createClient();
+  const phone = formData.get("phone")?.toString();
+  //TODO: Resolved very soon
+  if (!phone) return;
+  const token = formData.get("otp")?.toString();
+  if (!token) return;
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.verifyOtp({
+    phone: phone,
+    token: token,
+    type: "sms",
+  });
+  if (error) {
+    return encodedRedirect("error", "/sign-in", error.message);
+  }
+  return redirect("/protected");
+};
 
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
