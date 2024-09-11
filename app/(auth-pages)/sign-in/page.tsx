@@ -1,4 +1,4 @@
-import { phoneAction, signInAction, verifyOTP } from "@/app/actions";
+import { phoneAction, verifyOTP } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +27,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         ) : (
           <>
             <Label htmlFor="otp">OTP</Label>
-            <Input name="otp" placeholder="xxxxxx" />
+            <Input name="otp" placeholder="xxxxxx" defaultValue="" />
             <SubmitButton
               pendingText="Signing In..."
               formAction={async (formData: FormData) => {
