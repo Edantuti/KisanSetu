@@ -5,7 +5,10 @@ export const farmerSchema = z.object({
   date_of_birth: z.date({
     required_error: "Date of Birth is required.",
   }),
-  aadhar_number: z.string().min(12, "Aadhar Number should be 12 digits"),
+  aadhar_number: z
+    .string()
+    .min(12, "Aadhar Number should be 12 digits")
+    .max(12, "Aadhar Number should be 12 digits"),
   phone_number: z.string().min(10, "Phone Number should be 10 digits"),
 });
 export const buyerSchema = z.object({

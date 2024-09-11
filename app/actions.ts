@@ -6,52 +6,52 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { BuyerType, FarmerType } from "@/utils/types";
 
-export const signUpAction = async (formData: FormData) => {
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
-  const supabase = createClient();
-  const origin = headers().get("origin");
+//export const signUpAction = async (formData: FormData) => {
+//  const email = formData.get("email")?.toString();
+//  const password = formData.get("password")?.toString();
+//  const supabase = createClient();
+//  const origin = headers().get("origin");
+//
+//  if (!email || !password) {
+//    return { error: "Email and password are required" };
+//  }
+//
+//  const { error } = await supabase.auth.signUp({
+//    email,
+//    password,
+//    options: {
+//      emailRedirectTo: `${origin}/auth/callback`,
+//    },
+//  });
+//
+//  if (error) {
+//    console.error(error.code + " " + error.message);
+//    return encodedRedirect("error", "/sign-up", error.message);
+//  } else {
+//    return encodedRedirect(
+//      "success",
+//      "/sign-up",
+//      "Thanks for signing up! Please check your email for a verification link.",
+//    );
+//  }
+//};
 
-  if (!email || !password) {
-    return { error: "Email and password are required" };
-  }
-
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${origin}/auth/callback`,
-    },
-  });
-
-  if (error) {
-    console.error(error.code + " " + error.message);
-    return encodedRedirect("error", "/sign-up", error.message);
-  } else {
-    return encodedRedirect(
-      "success",
-      "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
-    );
-  }
-};
-
-export const signInAction = async (formData: FormData) => {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-  const supabase = createClient();
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
-  }
-
-  return redirect("/protected");
-};
+//export const signInAction = async (formData: FormData) => {
+//  const email = formData.get("email") as string;
+//  const password = formData.get("password") as string;
+//  const supabase = createClient();
+//
+//  const { error } = await supabase.auth.signInWithPassword({
+//    email,
+//    password,
+//  });
+//
+//  if (error) {
+//    return encodedRedirect("error", "/sign-in", error.message);
+//  }
+//
+//  return redirect("/protected");
+//};
 export const phoneAction = async (formData: FormData) => {
   const supabase = createClient();
   const phone = formData.get("phone")?.toString();
@@ -169,7 +169,7 @@ export const resetPasswordAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = createClient();
   await supabase.auth.signOut();
-  return redirect("/sign-in");
+  return redirect("/");
 };
 
 export const checkFirstCome = async () => {
@@ -200,26 +200,28 @@ export const createFarmerData = async (farmer: FarmerType) => {
   if (!user) {
     return redirect("/sign-in");
   }
-  const { error: FarmerStatusError } = await supabase
+  const { data: userData, error: FarmerStatusError } = await supabase
     .from("users")
-    .insert({ id: user.id, status: "farmer" });
+    .insert({ id: user.id, status: "farmer" })
+    .select()
+    .single();
   if (FarmerStatusError) {
     console.error(FarmerStatusError);
     return { error: FarmerStatusError };
   }
   const { error: FarmerCreationError } = await supabase.from("Farmer").insert({
     aadhar_number: farmer.aadhar_number,
-    date_of_birth: farmer.date_of_birth.toString(),
+    date_of_birth: farmer.date_of_birth.toUTCString(),
     id: user.id,
     name: farmer.name,
     father_name: farmer.father_name,
     phone_number: farmer.phone_number,
   });
   if (FarmerCreationError) {
+    await supabase.from("users").delete().eq("id", userData.id);
     console.error(FarmerCreationError);
     return { error: FarmerCreationError };
   }
-  redirect("/dashboard");
   return { error: null };
 };
 export const createBuyerData = async (buyer: BuyerType) => {
@@ -230,9 +232,11 @@ export const createBuyerData = async (buyer: BuyerType) => {
   if (!user) {
     return redirect("/sign-in");
   }
-  const { error: BuyerStatusError } = await supabase
+  const { data: userData, error: BuyerStatusError } = await supabase
     .from("users")
-    .insert({ id: user.id, status: "buyer" });
+    .insert({ id: user.id, status: "buyer" })
+    .select()
+    .single();
   if (BuyerStatusError) {
     console.error(BuyerStatusError);
     return { error: BuyerStatusError };
@@ -254,10 +258,10 @@ export const createBuyerData = async (buyer: BuyerType) => {
     state: buyer.state,
   });
   if (BuyerCreationError) {
+    await supabase.from("users").delete().eq("id", userData.id);
     console.error(BuyerCreationError);
     return { error: BuyerCreationError };
   }
-  redirect("/dashboard");
   return { error: null };
 };
 
