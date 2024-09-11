@@ -11,6 +11,9 @@ export function encodedRedirect(
   type: "error" | "success",
   path: string,
   message: string,
+  phone?: string,
 ) {
-  return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
+  return redirect(
+    `${path}?type=${type}&message=${encodeURIComponent(message)}&phone=${phone}`,
+  );
 }
