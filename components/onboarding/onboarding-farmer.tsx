@@ -49,7 +49,7 @@ export function FarmerForm() {
     getUser().then(({ data }) => {
       if (data)
         form.resetField("phone_number", {
-          defaultValue: `+${data!.user!.phone}`,
+          defaultValue: `${data!.user!.phone}`,
         });
     });
   }, []);

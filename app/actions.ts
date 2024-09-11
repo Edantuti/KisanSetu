@@ -305,3 +305,7 @@ export async function getUserInfo(type: string) {
     .single();
   return { data, error };
 }
+
+export const createContract = async () => {
+  //TODO: first create contract using the buyer, then added clauses, then finally monitor clauses
+};

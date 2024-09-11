@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: { type: string } }) {
   }
   const { response } = await checkFirstCome();
   if (!response) {
-    // return redirect("/dashboard");
+    return redirect("/dashboard");
   }
   return (
     <section className="min-h-[40rem] flex w-full items-center justify-center">

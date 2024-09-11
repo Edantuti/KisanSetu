@@ -20,5 +20,23 @@ export const buyerSchema = z.object({
   pincode: z.string().min(6, "Pincode should be 6 digits"),
 });
 
+export const ContractClauseSchema = z.object({
+  type: z.enum(["monitor", "condition", "others"]),
+  description: z.string(),
+});
+
+export const ContractSchema = z.object({
+  representative: z.string(),
+  status: z.string(),
+  start_date: z.date(),
+  end_date: z.date(),
+  sealing_date: z.date(),
+  total_value: z.number().int(),
+  performance_criteria: z.string(),
+  payment_terms: z.string(),
+  clauses: z.array(ContractClauseSchema).optional(),
+});
+
+export type ContractFormValues = z.infer<typeof ContractSchema>;
 export type FarmerType = z.infer<typeof farmerSchema>;
 export type BuyerType = z.infer<typeof buyerSchema>;
