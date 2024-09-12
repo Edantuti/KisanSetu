@@ -1,4 +1,4 @@
-import { phoneAction, signInAction, verifyOTP } from "@/app/actions";
+import { phoneAction, verifyOTP } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -16,16 +16,31 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         </Link>
       </p>
       <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-        <Label htmlFor="phone">Phone Number</Label>
-        <Input name="phone" placeholder="+91xxxxxxxxxx" required />
-        <SubmitButton pendingText="Signing In..." formAction={phoneAction}>
-          Sign in
-        </SubmitButton>
-        <Label htmlFor="otp">OTP</Label>
-        <Input name="otp" placeholder="xxxxxx" />
-        <SubmitButton pendingText="Signing In..." formAction={verifyOTP}>
-          Sign in
-        </SubmitButton>
+        {searchParams.type !== "success" ? (
+          <>
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input name="phone" placeholder="+91xxxxxxxxxx" required />
+            <SubmitButton pendingText="Signing In..." formAction={phoneAction}>
+              Sign in
+            </SubmitButton>
+          </>
+        ) : (
+          <>
+            <Label htmlFor="otp">OTP</Label>
+            <Input name="otp" placeholder="xxxxxx" defaultValue="" />
+            <SubmitButton
+              pendingText="Signing In..."
+              formAction={async (formData: FormData) => {
+                "use server";
+                if (searchParams.phone) {
+                  await verifyOTP(formData, searchParams?.phone);
+                }
+              }}
+            >
+              Sign in
+            </SubmitButton>
+          </>
+        )}
         <FormMessage message={searchParams} />
       </div>
     </form>
