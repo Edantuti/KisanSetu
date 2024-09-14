@@ -75,6 +75,19 @@ export function BuyerForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-96 space-y-2">
         <FormField
           control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="gstin"
           render={({ field }) => (
             <FormItem>

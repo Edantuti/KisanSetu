@@ -29,6 +29,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { ContractFormValues, ContractSchema } from "@/utils/types";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/utils/supabase/cn";
+import ContractFarmerForm from "./contract-farmer-form";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { createContract } from "@/app/actions";
 
 export function ContractForm() {
   const form = useForm<ContractFormValues>({
@@ -39,22 +43,44 @@ export function ContractForm() {
       performance_criteria: "",
       payment_terms: "",
       clauses: [],
+      farmer: {
+        farmer_id: "",
+        area: 0,
+        crop: "",
+        quantity: 0,
+      },
     },
   });
 
   const { control, handleSubmit } = form;
-
+  const [farmers, setFarmers] = useState<{ id: string; name: string | null }[]>(
+    [],
+  );
   const { fields, append, remove } = useFieldArray({
     control,
     name: "clauses",
   });
 
-  const onSubmit = (data: ContractFormValues) => {
-    console.log(data);
+  const onSubmit = async (data: ContractFormValues) => {
+    const { error } = await createContract(data);
+    if (error) {
+      console.error(error);
+    }
   };
-
+  //TODO: Need to select those farmers which have requested the buyer for the contract
+  async function getFarmers() {
+    return createClient().from("Farmer").select("id, name");
+  }
+  useEffect(() => {
+    getFarmers()
+      .then(({ data }) => {
+        if (data) setFarmers(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
   return (
     <Form {...form}>
+      {form.formState.errors && <p>{JSON.stringify(form.formState.errors)}</p>}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 w-96 flex flex-col"
@@ -68,21 +94,6 @@ export function ContractForm() {
               <FormLabel>Representative</FormLabel>
               <FormControl>
                 <Input placeholder="Representative" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Status */}
-        <FormField
-          control={control}
-          name="status"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Status</FormLabel>
-              <FormControl>
-                <Input placeholder="Status" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -220,7 +231,7 @@ export function ContractForm() {
             <FormItem>
               <FormLabel>Total Value</FormLabel>
               <FormControl>
-                <Input type="number" placeholder="Total Value" {...field} />
+                <Input placeholder="Total Value" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -249,14 +260,47 @@ export function ContractForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Payment Terms</FormLabel>
-              <FormControl>
-                <Textarea placeholder="Payment Terms" {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Payment Terms" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="yearly">Yearly</SelectItem>
+                  <SelectItem value="half-yearly">Half Yearly</SelectItem>
+                  <SelectItem value="quarterly">Quaterly</SelectItem>
+                  <SelectItem value="monthly">Monthly</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
         />
-
+        <FormField
+          control={control}
+          name="farmer.farmer_id"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Farmer's List</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a farmer" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {farmers.map(({ id, name }) => (
+                    <SelectItem key={id} value={id}>
+                      {name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
+        />
+        <ContractFarmerForm form={form} />
         {/* Contract Clauses */}
         <div className="flex flex-col gap-2">
           <FormLabel>Contract Clauses</FormLabel>
@@ -273,7 +317,7 @@ export function ContractForm() {
                       <FormControl>
                         <Select
                           onValueChange={field.onChange}
-                          defaultValue={field.value || undefined}
+                          defaultValue={field.value}
                         >
                           <SelectTrigger>
                             <SelectValue placeholder="Select a type" />
@@ -328,7 +372,10 @@ export function ContractForm() {
           </Button>
         </div>
         {/* Submit Button */}
-        <Button type="submit">Submit</Button>
+        {!form.formState.isValid && <p>Something is wrong</p>}
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          Submit
+        </Button>
       </form>
     </Form>
   );

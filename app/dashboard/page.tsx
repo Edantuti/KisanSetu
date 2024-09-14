@@ -1,19 +1,20 @@
 import { redirect } from "next/navigation";
-import { getUserInfo, getUserStatus } from "../actions";
+import { getContractByBuyersID, getUserInfo, getUserStatus } from "../actions";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Page() {
-  const { data, error } = await getUserStatus();
-  if (!data) {
+  const { data: userStatus, error: userStatusError } = await getUserStatus();
+  if (!userStatus) {
     return redirect("/onboarding");
   }
-  if (data.status === "farmer") {
-    const { data: info, error } = await getUserInfo(data.status);
-    console.log(info);
-  }
-  if (data.status === "buyer") {
-    const { data: info, error } = await getUserInfo(data.status);
-    console.log(info);
-  }
-  return <section></section>;
+  const { data, error } = await createClient().from("Buyers").select();
+  return (
+    <section className="min-h-[40rem]">
+      {data &&
+        data.map((value) => {
+          //TODO: Request adding feature, with all the land other such details
+          return <p key={value.id}>Buyer:{value.name}</p>;
+        })}
+    </section>
+  );
 }
