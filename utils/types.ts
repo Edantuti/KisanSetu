@@ -12,6 +12,7 @@ export const farmerSchema = z.object({
   phone_number: z.string().min(10, "Phone Number should be 10 digits"),
 });
 export const buyerSchema = z.object({
+  name: z.string().min(1, "Name is Required"),
   gstin: z.string().min(1, "GSTIN is required"),
   email: z.string().email("Invalid email address"),
   address: z.string().min(1, "Address is required"),
@@ -24,19 +25,37 @@ export const ContractClauseSchema = z.object({
   type: z.enum(["monitor", "condition", "others"]),
   description: z.string(),
 });
-
+export const FarmSchema = z.object({
+  area: z.number(),
+  soil_type: z.string().min(1, "Soil type not mentioned"),
+  irrigation: z.boolean(),
+  irrigation_type: z.string(),
+  water_source: z.string(),
+  crop_rotation: z.boolean(),
+  current_crop: z.string(),
+  previous_crop: z.string(),
+  organic_certified: z.boolean(),
+  pest_control: z.string(),
+  farm_equipment: z.string(),
+});
 export const ContractSchema = z.object({
   representative: z.string(),
-  status: z.string(),
   start_date: z.date(),
   end_date: z.date(),
   sealing_date: z.date(),
-  total_value: z.number().int(),
+  total_value: z.coerce.number(),
   performance_criteria: z.string(),
   payment_terms: z.string(),
   clauses: z.array(ContractClauseSchema).optional(),
+  farmer: z.object({
+    farmer_id: z.string(),
+    area: z.coerce.number(),
+    crop: z.string(),
+    quantity: z.coerce.number(),
+    quantity_metric: z.string(),
+  }),
 });
-
+export type FarmType = z.infer<typeof FarmSchema>;
 export type ContractFormValues = z.infer<typeof ContractSchema>;
 export type FarmerType = z.infer<typeof farmerSchema>;
 export type BuyerType = z.infer<typeof buyerSchema>;
