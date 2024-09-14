@@ -53,9 +53,9 @@ export function ContractForm() {
   });
 
   const { control, handleSubmit } = form;
-  const [farmers, setFarmers] = useState<{ id: string; name: string | null }[]>(
-    [],
-  );
+  const [farmers, setFarmers] = useState<
+    { user_id: string; name: string | null }[]
+  >([]);
   const { fields, append, remove } = useFieldArray({
     control,
     name: "clauses",
@@ -69,7 +69,7 @@ export function ContractForm() {
   };
   //TODO: Need to select those farmers which have requested the buyer for the contract
   async function getFarmers() {
-    return createClient().from("Farmer").select("id, name");
+    return createClient().from("Farmer").select("user_id, name");
   }
   useEffect(() => {
     getFarmers()
@@ -290,8 +290,8 @@ export function ContractForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {farmers.map(({ id, name }) => (
-                    <SelectItem key={id} value={id}>
+                  {farmers.map(({ user_id, name }) => (
+                    <SelectItem key={user_id} value={user_id}>
                       {name}
                     </SelectItem>
                   ))}

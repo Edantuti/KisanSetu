@@ -309,6 +309,56 @@ export async function getUserInfo(type: string) {
   return { data, error };
 }
 
+export const getContractByFarmerID = async () => {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return redirect("/sign-in");
+  }
+  const { data: userStatus, error: userStatusError } = await supabase
+    .from("users")
+    .select("userid,status")
+    .eq("id", user.id)
+    .single();
+  if (userStatusError) {
+    console.error(userStatusError);
+    return { data: null, error: userStatusError };
+  }
+  if (!userStatus) {
+    return redirect("/onboarding");
+  }
+  const { data: farmerData, error: farmerError } = await supabase
+    .from("Farmer")
+    .select()
+    .eq("user_id", userStatus.userid)
+    .single();
+  if (farmerError) {
+    console.error(farmerError);
+    return { data: null, error: farmerError };
+  }
+  const { data: Contracts, error: ContractsError } = await supabase
+    .from("ContractFarmer")
+    .select("Contract!inner(*),Farmer!inner(*)")
+    .eq("farmer_id", farmerData.user_id);
+  if (ContractsError) {
+    console.error(ContractsError);
+    return { data: null, error: ContractsError };
+  }
+  let data = [];
+  for (let i = 0; i < Contracts.length; i++) {
+    const contracts = Contracts[i].Contract;
+    const { data: buyer, error } = await supabase
+      .from("Buyers")
+      .select()
+      .eq("user_id", contracts.company_id)
+      .single();
+    data.push({ buyer, ...contracts, farmer: Contracts[i].Farmer });
+  }
+  return { data: data, error: null };
+};
+
 export const getContractByBuyersID = async () => {
   const supabase = createClient();
   const {
@@ -339,9 +389,6 @@ export const getContractByBuyersID = async () => {
     return { data: null, error: buyerError };
   }
   //TODO: Farmer Check need to be mentioned here.
-  if (!buyerData) {
-    return redirect("/onboarding");
-  }
   const { data: Contracts, error: ContractsError } = await supabase
     .from("Contract")
     .select("*,Clauses(*),ContractFarmer(Farmer(*))")
@@ -412,6 +459,7 @@ export const createContract = async (contract_data: ContractFormValues) => {
         description: clauses[i].description,
       });
     if (ClausesCreationError) {
+      console.error(ClausesCreationError);
       await supabase.from("Contract").delete().eq("id", Contract.id);
       return { error: ClausesCreationError };
     }
@@ -447,7 +495,56 @@ export const createContract = async (contract_data: ContractFormValues) => {
       quantity: contract_data.farmer.quantity,
     });
   if (ContractFarmerError) {
+    console.error(ContractFarmerError);
+    await supabase.from("Contract").delete().eq("id", Contract.id);
     return { error: ContractFarmerError };
   }
   return { error: null };
+};
+
+export const getMonitorClauses = async (contract_id: string) => {
+  const supabase = createClient();
+  const { data: Clauses, error: ClausesError } = await supabase
+    .from("Clauses")
+    .select("description,MonitorClauses(*)")
+    .eq("contract_id", contract_id);
+  if (ClausesError) {
+    return { data: null, error: ClausesError };
+  }
+  return { data: Clauses, error: null };
+};
+
+export const changeBuyerClauses = async (
+  clauses_id: string,
+  checked: boolean,
+) => {
+  const supabase = createClient();
+  const { error: ClausesError } = await supabase
+    .from("MonitorClauses")
+    .update({
+      contractor: checked,
+      contractor_marked: new Date(Date.now()).toUTCString(),
+    })
+    .eq("clauses_id", clauses_id);
+  if (ClausesError) {
+    console.error(ClausesError);
+    return;
+  }
+};
+export const changeFarmerClauses = async (
+  clauses_id: string,
+  checked: boolean,
+) => {
+  const supabase = createClient();
+  const { error: ClausesError } = await supabase
+    .from("MonitorClauses")
+    .update({
+      farmer: checked,
+      farmer_marked: new Date(Date.now()).toUTCString(),
+    })
+    .eq("clauses_id", clauses_id);
+  if (ClausesError) {
+    console.error(ClausesError);
+    return;
+  }
 };

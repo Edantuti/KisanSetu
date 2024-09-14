@@ -1,4 +1,8 @@
-import { getContractByBuyersID, getUserStatus } from "@/app/actions";
+import {
+  getContractByBuyersID,
+  getContractByFarmerID,
+  getUserStatus,
+} from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
@@ -12,23 +16,28 @@ import {
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { Fragment } from "react";
-import { FarmerType } from "@/utils/types";
 
 export default async function Page() {
   const { data } = await getUserStatus();
   if (!data) {
     return redirect("/onboarding");
   }
-  const { data: Contracts, error: ContractError } =
+  const { data: BuyerContracts, error: BuyerContractError } =
     await getContractByBuyersID();
+  const { data: FarmerContracts, error: FarmerContractError } =
+    await getContractByFarmerID();
   const { data: BuyersDetails, error: BuyersError } = await createClient()
     .from("Buyers")
     .select()
     .eq("user_id", data?.userid)
     .single();
-  if (ContractError) {
-    console.error(ContractError);
+  if (FarmerContractError) {
+    console.error(FarmerContractError);
   }
+  if (BuyerContractError) {
+    console.error(BuyerContractError);
+  }
+  //TODO: Converting it into two individual components
   return (
     <section className="min-h-[40rem]">
       {data?.status === "buyer" && (
@@ -37,8 +46,8 @@ export default async function Page() {
             <Link href="/dashboard/contract/create">Create New Contract</Link>
           </Button>
           <div>
-            {!ContractError &&
-              Contracts.map((value) => (
+            {!BuyerContractError &&
+              BuyerContracts.map((value) => (
                 <Card key={value.id} className="w-96">
                   <CardHeader>
                     <CardTitle>
@@ -54,6 +63,11 @@ export default async function Page() {
                     </div>
                   </CardHeader>
                   <CardContent>
+                    <Button asChild>
+                      <Link href={`/dashboard/contract/${value.id}`}>
+                        Monitor
+                      </Link>
+                    </Button>
                     {value.Clauses.map((clause) => (
                       <Fragment key={clause.id}>
                         <p>Clause Type: {clause.type}</p>
@@ -78,6 +92,42 @@ export default async function Page() {
               ))}
           </div>
         </>
+      )}
+      {data?.status === "farmer" && (
+        <div>
+          {!FarmerContractError &&
+            FarmerContracts.map((value) => (
+              <Card key={value.id} className="w-96">
+                <CardHeader>
+                  <CardTitle>Buyer Name: {value.buyer!.name}</CardTitle>
+                  <div className="text-sm text-muted-foreground">
+                    <p>Representative: {value.representative}</p>
+                    <p>Payment Terms: {value.payment_terms}</p>
+                    <p>Performance Criteria: {value.performance_criteria}</p>
+                    <p>Start Date: {value.start_date}</p>
+                    <p>Sealing Date: {value.sealing_date}</p>
+                    <p>End Date: {value.end_date}</p>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild>
+                    <Link href={`/dashboard/contract/${value.id}`}>
+                      Monitor
+                    </Link>
+                  </Button>
+                </CardContent>
+                <CardFooter>
+                  <div style={{ marginBottom: "10px" }}>
+                    <strong>Farmer Information:</strong>
+                    <p>Name: {value.farmer.name}</p>
+                    <p>Phone Number: {value.farmer.phone_number}</p>
+                    <p>Aadhar Number: {value.farmer.aadhar_number}</p>
+                    <p>Father's Name: {value.farmer.father_name}</p>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+        </div>
       )}
     </section>
   );
