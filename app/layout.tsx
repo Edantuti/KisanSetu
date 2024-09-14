@@ -25,7 +25,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-<<<<<<< HEAD
       <body className="bg-background text-foreground">
         {/*
 =======
