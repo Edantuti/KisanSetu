@@ -4,7 +4,7 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { BuyerType, FarmerType } from "@/utils/types";
+import { BuyerType, ContractFormValues, FarmerType } from "@/utils/types";
 
 //export const signUpAction = async (formData: FormData) => {
 //  const email = formData.get("email")?.toString();
@@ -213,6 +213,7 @@ export const createFarmerData = async (farmer: FarmerType) => {
     aadhar_number: farmer.aadhar_number,
     date_of_birth: farmer.date_of_birth.toUTCString(),
     id: user.id,
+    user_id: userData.userid,
     name: farmer.name,
     father_name: farmer.father_name,
     phone_number: farmer.phone_number,
@@ -254,6 +255,8 @@ export const createBuyerData = async (buyer: BuyerType) => {
     email: buyer.email,
     gstin: buyer.gstin,
     id: user.id,
+    name: buyer.name,
+    user_id: userData.userid,
     pincode: buyer.pincode,
     state: buyer.state,
   });
@@ -306,6 +309,145 @@ export async function getUserInfo(type: string) {
   return { data, error };
 }
 
-export const createContract = async () => {
+export const getContractByBuyersID = async () => {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return redirect("/sign-in");
+  }
+  const { data: userStatus, error: userStatusError } = await supabase
+    .from("users")
+    .select("userid,status")
+    .eq("id", user.id)
+    .single();
+  if (userStatusError) {
+    console.error(userStatusError);
+    return { data: null, error: userStatusError };
+  }
+  if (!userStatus) {
+    return redirect("/onboarding");
+  }
+  const { data: buyerData, error: buyerError } = await supabase
+    .from("Buyers")
+    .select()
+    .eq("user_id", userStatus.userid)
+    .single();
+  if (buyerError) {
+    console.error(buyerError);
+    return { data: null, error: buyerError };
+  }
+  //TODO: Farmer Check need to be mentioned here.
+  if (!buyerData) {
+    return redirect("/onboarding");
+  }
+  const { data: Contracts, error: ContractsError } = await supabase
+    .from("Contract")
+    .select("*,Clauses(*),ContractFarmer(Farmer(*))")
+    .eq("company_id", buyerData.user_id);
+  if (ContractsError) {
+    return { error: ContractsError, data: null };
+  }
+  return { data: Contracts, error: null };
+};
+
+export const createContract = async (contract_data: ContractFormValues) => {
   //TODO: first create contract using the buyer, then added clauses, then finally monitor clauses
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return redirect("/sign-in");
+  }
+  const { data: userStatus, error: userStatusError } = await supabase
+    .from("users")
+    .select("userid,status")
+    .eq("id", user.id)
+    .single();
+  if (userStatusError) {
+    console.error(userStatusError);
+  }
+  if (!userStatus) {
+    return redirect("/onboarding");
+  }
+  const { data: buyerData, error: buyerError } = await supabase
+    .from("Buyers")
+    .select()
+    .eq("user_id", userStatus.userid)
+    .single();
+  if (buyerError) {
+    console.error(buyerError);
+    return { error: buyerError };
+  }
+  if (!buyerData) {
+    return redirect("/dashboard");
+  }
+  const { data: Contract, error: ContractCreationError } = await supabase
+    .from("Contract")
+    .insert({
+      representative: contract_data.representative,
+      company_id: buyerData.user_id,
+      end_date: contract_data.end_date.toUTCString(),
+      start_date: contract_data.start_date.toUTCString(),
+      sealing_date: contract_data.sealing_date.toUTCString(),
+      payment_terms: contract_data.payment_terms,
+      performance_criteria: contract_data.performance_criteria,
+      total_value: contract_data.total_value,
+    })
+    .select()
+    .single();
+  if (ContractCreationError) {
+    console.error(ContractCreationError);
+    return { error: ContractCreationError };
+  }
+  for (let i = 0; i < contract_data.clauses!.length; i++) {
+    const clauses = contract_data.clauses!;
+    const { data: Clauses, error: ClausesCreationError } = await supabase
+      .from("Clauses")
+      .insert({
+        contract_id: Contract.id,
+        type: clauses[i].type,
+        description: clauses[i].description,
+      });
+    if (ClausesCreationError) {
+      await supabase.from("Contract").delete().eq("id", Contract.id);
+      return { error: ClausesCreationError };
+    }
+  }
+  const { data: MonitorClauses, error: MonitorClausesError } = await supabase
+    .from("Clauses")
+    .select()
+    .eq("contract_id", Contract.id)
+    .eq("type", "monitor");
+  if (MonitorClausesError) {
+    console.error(MonitorClausesError);
+    return { error: MonitorClausesError };
+  }
+  for (let clauses of MonitorClauses) {
+    const { error: MonitorClausesCreationError } = await supabase
+      .from("MonitorClauses")
+      .insert({
+        clauses_id: clauses.id,
+      });
+    if (MonitorClausesCreationError) {
+      await supabase.from("Contract").delete().eq("id", Contract.id);
+      return { error: MonitorClausesCreationError };
+    }
+  }
+  const { error: ContractFarmerError } = await supabase
+    .from("ContractFarmer")
+    .insert({
+      farmer_id: contract_data.farmer.farmer_id,
+      contract_id: Contract.id,
+      metric: parseInt(contract_data.farmer.quantity_metric),
+      area: contract_data.farmer.area,
+      crop: contract_data.farmer.crop,
+      quantity: contract_data.farmer.quantity,
+    });
+  if (ContractFarmerError) {
+    return { error: ContractFarmerError };
+  }
+  return { error: null };
 };

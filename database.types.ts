@@ -11,39 +11,60 @@ export type Database = {
     Tables: {
       Buyers: {
         Row: {
-          address: string | null
-          created_at: string | null
-          district: string | null
+          address: string
+          created_at: string
+          district: string
           email: string
           gstin: string
           id: string
-          pincode: string | null
-          state: string | null
+          name: string
+          pincode: string
+          state: string
           updated_at: string | null
+          user_id: string
         }
         Insert: {
-          address?: string | null
-          created_at?: string | null
-          district?: string | null
+          address: string
+          created_at?: string
+          district: string
           email: string
           gstin: string
           id: string
-          pincode?: string | null
-          state?: string | null
+          name?: string
+          pincode: string
+          state: string
           updated_at?: string | null
+          user_id?: string
         }
         Update: {
-          address?: string | null
-          created_at?: string | null
-          district?: string | null
+          address?: string
+          created_at?: string
+          district?: string
           email?: string
           gstin?: string
           id?: string
-          pincode?: string | null
-          state?: string | null
+          name?: string
+          pincode?: string
+          state?: string
           updated_at?: string | null
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Buyers_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Buyers_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["userid"]
+          },
+        ]
       }
       Clauses: {
         Row: {
@@ -58,7 +79,7 @@ export type Database = {
           contract_id?: string | null
           created_at?: string | null
           description?: string | null
-          id: string
+          id?: string
           type?: string | null
           updated_at?: string | null
         }
@@ -153,46 +174,52 @@ export type Database = {
       }
       Contract: {
         Row: {
-          company_id: string | null
-          created_at: string | null
+          buyer_photo: string | null
+          company_id: string
+          created_at: string
           end_date: string | null
+          farmer_photo: string | null
           id: string
           payment_terms: string | null
           performance_criteria: string | null
-          representative: string | null
+          representative: string
           sealing_date: string | null
           start_date: string | null
           status: string | null
           total_value: number | null
-          updated_at: string | null
+          updated_at: string
         }
         Insert: {
-          company_id?: string | null
-          created_at?: string | null
+          buyer_photo?: string | null
+          company_id: string
+          created_at?: string
           end_date?: string | null
-          id: string
-          payment_terms?: string | null
-          performance_criteria?: string | null
-          representative?: string | null
-          sealing_date?: string | null
-          start_date?: string | null
-          status?: string | null
-          total_value?: number | null
-          updated_at?: string | null
-        }
-        Update: {
-          company_id?: string | null
-          created_at?: string | null
-          end_date?: string | null
+          farmer_photo?: string | null
           id?: string
           payment_terms?: string | null
           performance_criteria?: string | null
-          representative?: string | null
+          representative?: string
           sealing_date?: string | null
           start_date?: string | null
           status?: string | null
           total_value?: number | null
-          updated_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          buyer_photo?: string | null
+          company_id?: string
+          created_at?: string
+          end_date?: string | null
+          farmer_photo?: string | null
+          id?: string
+          payment_terms?: string | null
+          performance_criteria?: string | null
+          representative?: string
+          sealing_date?: string | null
+          start_date?: string | null
+          status?: string | null
+          total_value?: number | null
+          updated_at?: string
         }
         Relationships: [
           {
@@ -200,28 +227,34 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "Buyers"
-            referencedColumns: ["id"]
+            referencedColumns: ["user_id"]
           },
         ]
       }
       ContractFarmer: {
         Row: {
           area: number | null
-          contract_id: string | null
+          contract_id: string
           crop: string | null
-          farmer_id: string | null
+          farmer_id: string
+          metric: number
+          quantity: number | null
         }
         Insert: {
           area?: number | null
-          contract_id?: string | null
+          contract_id: string
           crop?: string | null
-          farmer_id?: string | null
+          farmer_id: string
+          metric: number
+          quantity?: number | null
         }
         Update: {
           area?: number | null
-          contract_id?: string | null
+          contract_id?: string
           crop?: string | null
-          farmer_id?: string | null
+          farmer_id?: string
+          metric?: number
+          quantity?: number | null
         }
         Relationships: [
           {
@@ -236,6 +269,13 @@ export type Database = {
             columns: ["farmer_id"]
             isOneToOne: false
             referencedRelation: "Farmer"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "ContractFarmer_metric_fkey"
+            columns: ["metric"]
+            isOneToOne: false
+            referencedRelation: "Metrics"
             referencedColumns: ["id"]
           },
         ]
@@ -285,7 +325,7 @@ export type Database = {
       Farm: {
         Row: {
           area: number | null
-          created_at: string | null
+          created_at: string
           crop_rotation: boolean | null
           current_crop: string | null
           farm_equipment: string | null
@@ -299,12 +339,12 @@ export type Database = {
           pest_control: string | null
           previous_crop: string | null
           soil_type: string | null
-          updated_at: string | null
+          updated_at: string
           water_source: string | null
         }
         Insert: {
           area?: number | null
-          created_at?: string | null
+          created_at?: string
           crop_rotation?: boolean | null
           current_crop?: string | null
           farm_equipment?: string | null
@@ -318,12 +358,12 @@ export type Database = {
           pest_control?: string | null
           previous_crop?: string | null
           soil_type?: string | null
-          updated_at?: string | null
+          updated_at?: string
           water_source?: string | null
         }
         Update: {
           area?: number | null
-          created_at?: string | null
+          created_at?: string
           crop_rotation?: boolean | null
           current_crop?: string | null
           farm_equipment?: string | null
@@ -337,7 +377,7 @@ export type Database = {
           pest_control?: string | null
           previous_crop?: string | null
           soil_type?: string | null
-          updated_at?: string | null
+          updated_at?: string
           water_source?: string | null
         }
         Relationships: [
@@ -346,7 +386,7 @@ export type Database = {
             columns: ["farmer_id"]
             isOneToOne: false
             referencedRelation: "Farmer"
-            referencedColumns: ["id"]
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -360,6 +400,7 @@ export type Database = {
           name: string | null
           phone_number: string | null
           updated_at: string | null
+          user_id: string
         }
         Insert: {
           aadhar_number?: string | null
@@ -370,6 +411,7 @@ export type Database = {
           name?: string | null
           phone_number?: string | null
           updated_at?: string | null
+          user_id?: string
         }
         Update: {
           aadhar_number?: string | null
@@ -380,8 +422,24 @@ export type Database = {
           name?: string | null
           phone_number?: string | null
           updated_at?: string | null
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "Farmer_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Farmer_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["userid"]
+          },
+        ]
       }
       FarmStorage: {
         Row: {
@@ -422,6 +480,27 @@ export type Database = {
           },
         ]
       }
+      Metrics: {
+        Row: {
+          created_at: string
+          id: number
+          type: string
+          unit: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          type: string
+          unit: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          type?: string
+          unit?: string
+        }
+        Relationships: []
+      }
       MonitorClauses: {
         Row: {
           clauses_id: string | null
@@ -429,6 +508,7 @@ export type Database = {
           contractor_marked: string | null
           farmer: boolean | null
           farmer_marked: string | null
+          id: string
         }
         Insert: {
           clauses_id?: string | null
@@ -436,6 +516,7 @@ export type Database = {
           contractor_marked?: string | null
           farmer?: boolean | null
           farmer_marked?: string | null
+          id?: string
         }
         Update: {
           clauses_id?: string | null
@@ -443,6 +524,7 @@ export type Database = {
           contractor_marked?: string | null
           farmer?: boolean | null
           farmer_marked?: string | null
+          id?: string
         }
         Relationships: [
           {
@@ -450,6 +532,42 @@ export type Database = {
             columns: ["clauses_id"]
             isOneToOne: false
             referencedRelation: "Clauses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      Request: {
+        Row: {
+          buyer_id: string
+          created_at: string
+          farmer_id: string
+          id: string
+        }
+        Insert: {
+          buyer_id: string
+          created_at?: string
+          farmer_id: string
+          id?: string
+        }
+        Update: {
+          buyer_id?: string
+          created_at?: string
+          farmer_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Request_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "Buyers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Request_farmer_id_fkey"
+            columns: ["farmer_id"]
+            isOneToOne: false
+            referencedRelation: "Farmer"
             referencedColumns: ["id"]
           },
         ]
@@ -506,17 +624,20 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          status: Database["public"]["Enums"]["status"] | null
+          status: Database["public"]["Enums"]["status"]
+          userid: string
         }
         Insert: {
           created_at?: string
           id: string
-          status?: Database["public"]["Enums"]["status"] | null
+          status?: Database["public"]["Enums"]["status"]
+          userid?: string
         }
         Update: {
           created_at?: string
           id?: string
-          status?: Database["public"]["Enums"]["status"] | null
+          status?: Database["public"]["Enums"]["status"]
+          userid?: string
         }
         Relationships: [
           {
@@ -536,7 +657,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      status: "farmer" | "buyer" | "company"
+      status: "farmer" | "buyer"
     }
     CompositeTypes: {
       [_ in never]: never
