@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { BuyerType, ContractFormValues, FarmerType } from "@/utils/types";
+//TODO: Organise the Actions.ts file into its separate functionality
 
 //export const signUpAction = async (formData: FormData) => {
 //  const email = formData.get("email")?.toString();
@@ -434,6 +435,8 @@ export const createContract = async (contract_data: ContractFormValues) => {
   const { data: Contract, error: ContractCreationError } = await supabase
     .from("Contract")
     .insert({
+      name: contract_data.name,
+      description: contract_data.description,
       representative: contract_data.representative,
       company_id: buyerData.user_id,
       end_date: contract_data.end_date.toUTCString(),
@@ -484,20 +487,23 @@ export const createContract = async (contract_data: ContractFormValues) => {
       return { error: MonitorClausesCreationError };
     }
   }
-  const { error: ContractFarmerError } = await supabase
-    .from("ContractFarmer")
-    .insert({
-      farmer_id: contract_data.farmer.farmer_id,
-      contract_id: Contract.id,
-      metric: parseInt(contract_data.farmer.quantity_metric),
-      area: contract_data.farmer.area,
-      crop: contract_data.farmer.crop,
-      quantity: contract_data.farmer.quantity,
-    });
-  if (ContractFarmerError) {
-    console.error(ContractFarmerError);
-    await supabase.from("Contract").delete().eq("id", Contract.id);
-    return { error: ContractFarmerError };
+  for (let i = 0; i < contract_data.farmer.length; i++) {
+    const farmer = contract_data.farmer[i];
+    const { error: ContractFarmerError } = await supabase
+      .from("ContractFarmer")
+      .insert({
+        farmer_id: farmer.farmer_id,
+        contract_id: Contract.id,
+        metric: parseInt(farmer.quantity_metric),
+        area: farmer.area,
+        crop: farmer.crop,
+        quantity: farmer.quantity,
+      });
+    if (ContractFarmerError) {
+      console.error(ContractFarmerError);
+      await supabase.from("Contract").delete().eq("id", Contract.id);
+      return { error: ContractFarmerError };
+    }
   }
   return { error: null };
 };
@@ -547,4 +553,31 @@ export const changeFarmerClauses = async (
     console.error(ClausesError);
     return;
   }
+};
+
+export const getContractbyID = async (contract_id: string) => {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return redirect("/sign-in");
+  }
+  const { data: Contract, error: ContractError } = await supabase
+    .from("Contract")
+    .select("*, Clauses(*),ContractFarmer(*,Farmer(*),Metrics(*))")
+    .eq("id", contract_id)
+    .single();
+  if (ContractError) {
+    return { data: null, error: ContractError };
+  }
+  const { data: Buyer, error: BuyerError } = await supabase
+    .from("Buyers")
+    .select()
+    .eq("user_id", Contract.company_id)
+    .single();
+  if (BuyerError) {
+    return { data: null, error: BuyerError };
+  }
+  return { data: { ...Contract, buyer: Buyer }, error: null };
 };

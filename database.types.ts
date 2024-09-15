@@ -177,9 +177,11 @@ export type Database = {
           buyer_photo: string | null
           company_id: string
           created_at: string
+          description: string
           end_date: string | null
           farmer_photo: string | null
           id: string
+          name: string
           payment_terms: string | null
           performance_criteria: string | null
           representative: string
@@ -193,9 +195,11 @@ export type Database = {
           buyer_photo?: string | null
           company_id: string
           created_at?: string
+          description?: string
           end_date?: string | null
           farmer_photo?: string | null
           id?: string
+          name?: string
           payment_terms?: string | null
           performance_criteria?: string | null
           representative?: string
@@ -209,9 +213,11 @@ export type Database = {
           buyer_photo?: string | null
           company_id?: string
           created_at?: string
+          description?: string
           end_date?: string | null
           farmer_photo?: string | null
           id?: string
+          name?: string
           payment_terms?: string | null
           performance_criteria?: string | null
           representative?: string
@@ -395,9 +401,9 @@ export type Database = {
           aadhar_number: string | null
           created_at: string | null
           date_of_birth: string | null
-          father_name: string | null
+          father_name: string
           id: string
-          name: string | null
+          name: string
           phone_number: string | null
           updated_at: string | null
           user_id: string
@@ -406,9 +412,9 @@ export type Database = {
           aadhar_number?: string | null
           created_at?: string | null
           date_of_birth?: string | null
-          father_name?: string | null
+          father_name: string
           id: string
-          name?: string | null
+          name: string
           phone_number?: string | null
           updated_at?: string | null
           user_id?: string
@@ -417,9 +423,9 @@ export type Database = {
           aadhar_number?: string | null
           created_at?: string | null
           date_of_birth?: string | null
-          father_name?: string | null
+          father_name?: string
           id?: string
-          name?: string | null
+          name?: string
           phone_number?: string | null
           updated_at?: string | null
           user_id?: string
@@ -503,26 +509,26 @@ export type Database = {
       }
       MonitorClauses: {
         Row: {
-          clauses_id: string | null
-          contractor: boolean | null
+          clauses_id: string
+          contractor: boolean
           contractor_marked: string | null
-          farmer: boolean | null
+          farmer: boolean
           farmer_marked: string | null
           id: string
         }
         Insert: {
-          clauses_id?: string | null
-          contractor?: boolean | null
+          clauses_id: string
+          contractor?: boolean
           contractor_marked?: string | null
-          farmer?: boolean | null
+          farmer?: boolean
           farmer_marked?: string | null
           id?: string
         }
         Update: {
-          clauses_id?: string | null
-          contractor?: boolean | null
+          clauses_id?: string
+          contractor?: boolean
           contractor_marked?: string | null
-          farmer?: boolean | null
+          farmer?: boolean
           farmer_marked?: string | null
           id?: string
         }
