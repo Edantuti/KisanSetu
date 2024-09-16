@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { getContractByBuyersID, getUserInfo, getUserStatus } from "../actions";
 import { createClient } from "@/utils/supabase/server";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Page() {
   const { data: userStatus, error: userStatusError } = await getUserStatus();
@@ -15,6 +17,9 @@ export default async function Page() {
           //TODO: Request adding feature, with all the land other such details
           return <p key={value.id}>Buyer:{value.name}</p>;
         })}
+      <Button asChild size="sm">
+        <Link href={"/dashboard/contract"}>Contract</Link>
+      </Button>
     </section>
   );
 }

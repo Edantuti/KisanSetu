@@ -38,7 +38,16 @@ export const FarmSchema = z.object({
   pest_control: z.string(),
   farm_equipment: z.string(),
 });
+export const FarmerContractSchema = z.object({
+  farmer_id: z.string(),
+  area: z.coerce.number(),
+  crop: z.string(),
+  quantity: z.coerce.number(),
+  quantity_metric: z.string(),
+});
 export const ContractSchema = z.object({
+  name: z.string(),
+  description: z.string(),
   representative: z.string(),
   start_date: z.date(),
   end_date: z.date(),
@@ -47,13 +56,7 @@ export const ContractSchema = z.object({
   performance_criteria: z.string(),
   payment_terms: z.string(),
   clauses: z.array(ContractClauseSchema).optional(),
-  farmer: z.object({
-    farmer_id: z.string(),
-    area: z.coerce.number(),
-    crop: z.string(),
-    quantity: z.coerce.number(),
-    quantity_metric: z.string(),
-  }),
+  farmer: z.array(FarmerContractSchema).min(1, "One Farmer required"),
 });
 export type FarmType = z.infer<typeof FarmSchema>;
 export type ContractFormValues = z.infer<typeof ContractSchema>;
