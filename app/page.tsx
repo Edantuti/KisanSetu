@@ -110,10 +110,10 @@ export default async function Index() {
             <p className='text-xl group-hover:scale-125 group-hover:mt-3'>Logistics & Storage</p>
           </div>
         </div>
-        <div className='h-[100vh] bg-[#f4e9dc] px-10'>
+        <div className='h-[90vh] bg-[#f4e9dc] px-10'>
          <MapComponent/>
-         <Schemes/>
         </div>
+        <Schemes/>
       </div>
     </>
   );

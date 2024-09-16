@@ -77,7 +77,7 @@ export default function RootLayout({
         > */}
           {children}
         {/* </ThemeProvider> */}
-        {/* <Footer/> */}
+        <Footer/>
       </body>
     </html>
   );

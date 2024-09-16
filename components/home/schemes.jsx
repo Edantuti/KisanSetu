@@ -3,7 +3,7 @@ import Image from "next/image"
 export default function MapConponent() {
     return(
         <>
-        <div className="bg mt-10 " style={{background: 'url("/images/home/leaves.png")', backgroundSize: 'contain',backgroundRepeat:'no-repeat',height: '130vh' }}>
+        <div className="bg h-[120vh] block " style={{background: 'url("/images/home/leaves.png")', backgroundSize: 'contain',backgroundRepeat:'no-repeat' }}>
         <div className="text-center text-[#566638] text-6xl mt-[20vh]">
         Government Schemes & Blogs
         </div>

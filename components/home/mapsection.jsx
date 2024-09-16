@@ -7,7 +7,7 @@ export default function MapConponent() {
   AOS.init();
   return (
     <>
-    <div className=" w-full h-[90vh] bg-[#f4e9dc] ">
+    <div className=" w-full h-[90vh] bg-[#f4e9dc]  ">
       <div className='text-6xl py-20 w-full  text-[#805d46] font-bold'>Nearby Farms & Contracts</div>
       <div className='border-solid border-[#805d46] border-[6px] border-r-0 rounded-md h-[500px] ml-[35%] right-0 '>
         <div
