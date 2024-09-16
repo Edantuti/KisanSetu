@@ -4,12 +4,13 @@ import dynamic from 'next/dynamic';
 
 const MapComponent = dynamic(() => import('@/components/home/mapsection.jsx'), { ssr: false });
 import Image from 'next/image';
+import Schemes from '@/components/home/schemes'
 
 export default async function Index() {
   return (
     <>
       <div className=''>
-        <nav className="w-[100%] flex justify-between absolute z-10 bg-transparent px-5 py-2">
+        {/* <nav className="w-[100%] flex justify-between absolute z-10 bg-transparent px-5 py-2">
           <div className='flex flex-col justify-center items-center  w-[100px] '>
             <Image
               src="/images/home/logo.svg"
@@ -25,7 +26,7 @@ export default async function Index() {
             <div>Blogs</div>
             <AuthButton />
           </div>
-        </nav>
+        </nav> */}
         <div className='h-[83vh]  top-0 flex w-full overflow-x-hidden'>
           <Image
             src="/images/home/kisan.png"
@@ -109,9 +110,10 @@ export default async function Index() {
             <p className='text-xl group-hover:scale-125 group-hover:mt-3'>Logistics & Storage</p>
           </div>
         </div>
-        <div className='h-[100vh] bg-[#f4e9dc] px-10'>
+        <div className='h-[90vh] bg-[#f4e9dc] px-10'>
          <MapComponent/>
         </div>
+        <Schemes/>
       </div>
     </>
   );
