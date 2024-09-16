@@ -27,9 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <head>
-        <ColorSchemeScript />
-      </head>
+      <head></head>
       <body className="bg-background text-foreground overflow-x-hidden ">
         <NavBar />
         {/*
