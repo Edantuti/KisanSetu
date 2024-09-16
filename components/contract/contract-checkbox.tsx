@@ -1,6 +1,12 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Dialog,
   DialogClose,
@@ -72,11 +78,10 @@ export function CheckboxContractClauses({
     <Dialog open={openDialog}>
       <Card className="w-full max-w-md p-4">
         <CardHeader>
-          <CardTitle>Mark as Done</CardTitle>
+          <CardTitle>Monitor Clauses</CardTitle>
+          <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-500 mb-4">{description}</p>
-
           <div className="flex items-center space-x-2 mb-2">
             <Checkbox
               id="option1"
@@ -86,13 +91,17 @@ export function CheckboxContractClauses({
                 setOpenDialog(true);
               }}
             />
-            <label htmlFor="option1">
-              Farmer Option{" "}
-              {data.farmer_marked && (
-                <span className="text-sm">
-                  Marked at {new Date(data.farmer_marked).toLocaleDateString()}
-                </span>
-              )}
+            <label htmlFor="option1" className="text-xs">
+              <div>
+                <p className="font-semibold">Farmer Option</p>
+
+                {data.farmer_marked && (
+                  <span className="text-xs">
+                    Marked at{" "}
+                    {new Date(data.farmer_marked).toLocaleDateString()}
+                  </span>
+                )}
+              </div>
             </label>
           </div>
 
@@ -105,10 +114,10 @@ export function CheckboxContractClauses({
                 setOpenDialog(true);
               }}
             />
-            <label htmlFor="option2">
-              Buyer option{" "}
+            <label htmlFor="option2" className="text-xs">
+              <p className="font-semibold">Buyer option </p>
               {data.contractor_marked && (
-                <span className="text-sm">
+                <span className="text-xs">
                   Marked at{" "}
                   {new Date(data.contractor_marked).toLocaleDateString()}
                 </span>
@@ -146,6 +155,15 @@ export function CheckboxContractClauses({
             className="px-3"
           >
             Submit
+          </Button>
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() => {
+              setOpenDialog(false);
+            }}
+          >
+            Close
           </Button>
         </div>
       </DialogContent>
