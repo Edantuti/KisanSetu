@@ -12,9 +12,9 @@ export default async function NavBar() {
               alt="project logo"
               className=''
             />
-            <p className='font-bold'>Krishi Setu</p>
+            <p className='font-bold text-lg'>Krishi Setu</p>
           </div>
-          <div className='flex justify-evenly items-center gap-5 font-bold  '>
+          <div className='flex justify-evenly items-center gap-5 font-bold text-xl '>
             <div>Community</div>
             <div>Blogs</div>
             <AuthButton />
