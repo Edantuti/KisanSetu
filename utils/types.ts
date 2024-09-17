@@ -22,7 +22,7 @@ export const buyerSchema = z.object({
 });
 
 export const ContractClauseSchema = z.object({
-  type: z.enum(["monitor", "condition", "others"]),
+  type: z.string(),
   description: z.string(),
 });
 export const FarmSchema = z.object({
