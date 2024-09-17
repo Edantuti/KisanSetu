@@ -9,12 +9,7 @@ import Link from "next/link";
 import "./globals.css";
 import NavBar from "@/components/common/Nav";
 import Footer from "@/components/common/Footer";
-<<<<<<< HEAD
-// import "@mantine/core/styles.css";
-// import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-=======
-import Script from 'next/script';
->>>>>>> c8b22958f9a35d840c71c58ebec23fc92374fd62
+import Script from "next/script";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -37,13 +32,13 @@ export default function RootLayout({
       <body className="bg-background text-foreground overflow-x-hidden ">
         <NavBar />
         <Script
-        src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"
-        strategy="afterInteractive" // Load after the page is interactive
-      />
-      <Script
-        src="https://mediafiles.botpress.cloud/974b2644-7598-4dce-a6ea-774e5cac35d3/webchat/v2.1/config.js"
-        strategy="afterInteractive"
-      />
+          src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"
+          strategy="afterInteractive" // Load after the page is interactive
+        />
+        <Script
+          src="https://mediafiles.botpress.cloud/974b2644-7598-4dce-a6ea-774e5cac35d3/webchat/v2.1/config.js"
+          strategy="afterInteractive"
+        />
         {/*
       <body className="bg-background text-foreground overflow-x-hidden">
         {/* <ThemeProvider

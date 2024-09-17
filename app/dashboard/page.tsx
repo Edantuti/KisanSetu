@@ -1,5 +1,10 @@
 import { redirect } from "next/navigation";
-import { getContractByBuyersID, getUserInfo, getUserStatus } from "../actions";
+import {
+  getContractByBuyersID,
+  getUserDetails,
+  getUserInfo,
+  getUserStatus,
+} from "../actions";
 import { createClient } from "@/utils/supabase/server";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -7,8 +12,12 @@ import { BuyerDetails } from "@/components/details/buyer-details";
 import { FarmerDetails } from "@/components/details/farmer-details";
 
 export default async function Page() {
-  const { data: userStatus, error: userStatusError } = await getUserStatus();
+  const { data: userStatus, error: userError } = await getUserStatus();
   if (!userStatus) {
+    return redirect("/onboarding");
+  }
+  const details = await getUserDetails();
+  if (!details) {
     return redirect("/onboarding");
   }
   return (
@@ -16,24 +25,24 @@ export default async function Page() {
       {userStatus.status === "buyer" && (
         <BuyerDetails
           data={{
-            state: "Andhra Pradesh",
-            name: "Edan Solomon Tuti",
-            gstin: "29u492750824093874",
-            email: "edansolomontuti@gmail.com",
-            address: "Qtr-515/B/Sector-11",
-            district: "Visakhapatnam",
-            pincode: "530032",
+            state: details.address,
+            name: details.name,
+            gstin: details.gstin,
+            email: details.email,
+            address: details.address,
+            district: details.district,
+            pincode: details.pincode,
           }}
         />
       )}
       {userStatus.status === "farmer" && (
         <FarmerDetails
           data={{
-            name: "Edan Solomon Tuti",
-            father_name: "Jagarnath Munda",
-            date_of_birth: new Date(),
-            aadhar_number: "555566665555",
-            phone_number: "+918330944117",
+            name: details.name,
+            father_name: details.father_name,
+            date_of_birth: new Date(details.date_of_birth),
+            aadhar_number: details.aadhar_number,
+            phone_number: details.phone_number,
           }}
         />
       )}

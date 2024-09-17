@@ -581,3 +581,42 @@ export const getContractbyID = async (contract_id: string) => {
   }
   return { data: { ...Contract, buyer: Buyer }, error: null };
 };
+
+export const getUserDetails = async () => {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return redirect("/sign-in");
+  }
+  const { data: userStatus, error: userStatusError } = await supabase
+    .from("users")
+    .select("userid,status")
+    .eq("id", user.id)
+    .single();
+  if (userStatusError) {
+    console.error(userStatusError);
+  }
+  if (!userStatus) {
+    return redirect("/onboarding");
+  }
+  let details: any; //TODO: Changes required
+  if (userStatus.status === "farmer") {
+    const { data: farmer, error } = await supabase
+      .from("Farmer")
+      .select()
+      .eq("user_id", userStatus.userid)
+      .single();
+    details = { ...farmer };
+  }
+  if (userStatus.status === "buyer") {
+    const { data: buyer, error } = await supabase
+      .from("Buyers")
+      .select()
+      .eq("user_id", userStatus.userid)
+      .single();
+    details = { ...buyer };
+  }
+  return details;
+};
