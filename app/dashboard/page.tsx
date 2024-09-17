@@ -21,7 +21,7 @@ export default async function Page() {
     return redirect("/onboarding");
   }
   return (
-    <section className="min-h-[60rem] flex items-center justify-center">
+    <section className="min-h-[60rem] flex flex-col items-center justify-center gap-2">
       {userStatus.status === "buyer" && (
         <BuyerDetails
           data={{
