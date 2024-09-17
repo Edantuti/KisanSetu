@@ -16,14 +16,25 @@ export default async function Page() {
     return redirect("/dashboard");
   }
   return (
-    <section className="min-h-[40rem] flex flex-col w-full gap-4 items-center justify-center">
-      <Button asChild>
+    <section className="h-[90vh] flex w-full">
+      <div className="bg-yellow-400 h-full w-[50%] flex justify-center items-end backdrop-blur-sm pb-20"
+      style={{background: 'url("/images/far.jpg")', backgroundSize: 'cover',backgroundRepeat:'no-repeat' }}
+      >
+        {/* <div className="absolute inset-0 backdrop-blur-sm"></div> */}
+      <Button asChild className=" text-2xl p-8">
         <Link href="/onboarding/farmer">Join as Farmer</Link>
       </Button>
-      <Separator />
-      <Button asChild>
+      </div>
+      <div className="bg-yellow-400 h-full w-[50%] flex justify-center items-end pb-20"
+      style={{background: 'url("/images/buyer.jpg")', backgroundSize: 'cover',backgroundRepeat:'no-repeat' }}
+      >
+      <Button asChild className=" text-2xl p-8">
         <Link href="/onboarding/buyer">Join as Buyer</Link>
       </Button>
+      </div>
+      
+      {/* <Separator /> */}
+      
     </section>
   );
 }
