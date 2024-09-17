@@ -6,6 +6,7 @@ const MapComponent = dynamic(() => import('@/components/home/mapsection.jsx'), {
 import Image from 'next/image';
 import Schemes from '@/components/home/schemes'
 import Link from 'next/link';
+import NavBar from '@/components/common/NavHome';
 
 export default async function Index() {
   return (
@@ -28,6 +29,7 @@ export default async function Index() {
             <AuthButton />
           </div>
         </nav> */}
+        {/* <NavBar/> */}
         <div className='h-[83vh]  top-0 flex w-full overflow-x-hidden'>
           <Image
             src="/images/home/kisan.png"
