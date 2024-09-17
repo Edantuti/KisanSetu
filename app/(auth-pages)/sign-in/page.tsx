@@ -16,7 +16,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         {searchParams.type !== "success" ? (
           <>
             <Label htmlFor="phone">Phone Number</Label>
-            <Input name="phone" placeholder="+91xxxxxxxxxx" required />
+            <Input name="phone" placeholder="+91xxxxxxxxxx" required className="text-black" />
             <SubmitButton pendingText="Signing In..." formAction={phoneAction}>
               Sign in
             </SubmitButton>
@@ -24,7 +24,7 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         ) : (
           <>
             <Label htmlFor="otp">OTP</Label>
-            <Input name="otp" placeholder="xxxxxx" defaultValue="" />
+            <Input name="otp" placeholder="xxxxxx" defaultValue=""  className="text-black"/>
             <SubmitButton
               pendingText="Signing In..."
               formAction={async (formData: FormData) => {
