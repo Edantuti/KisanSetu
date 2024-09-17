@@ -14,7 +14,7 @@ export default async function Page() {
         {data?.status === "buyer" && <ContractBuyer />}
         {data?.status === "farmer" && <ContractFarmer />}
         {data?.status === "buyer" && (
-          <Button asChild className="w-96 h-full" variant={"outline"}>
+          <Button asChild className="w-96" variant={"outline"}>
             <Link href="/dashboard/contract/create">New Contracts +</Link>
           </Button>
         )}

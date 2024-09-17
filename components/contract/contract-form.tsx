@@ -123,7 +123,7 @@ export function ContractForm() {
           alt="Contract Image"
           className="w-full h-83 object-cover rounded-lg mb-6"
         />
-        <section className="p-6 mb-6 rounded-lg space-y-2">
+        <section className="p-6 mb-6 rounded-lg space-y-2 border-gray-700 border-solid border-2 shadow-md shadow-gray-600">
           <h1 className="text-3xl font-bold mb-2">Contract</h1>
           <FormField
             control={control}
@@ -152,7 +152,7 @@ export function ContractForm() {
             )}
           />
         </section>
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 border-gray-700 border-solid border-2 shadow-md shadow-gray-600 rounded-md p-6">
           {/* Representative */}
           <FormField
             control={control}
@@ -334,7 +334,7 @@ export function ContractForm() {
         />
         <ContractFarmerForm form={form} /> */}
         {/* Contract Clauses */}
-        <div className="">
+        <div className="border-gray-700 border-solid border-2 shadow-md shadow-gray-600 rounded-md p-6 mb-10">
           <FormLabel className="text-2xl mb-3">Contract Farmer(s)</FormLabel>
           {!loading &&
             FarmersFields.map((item, index) => (
@@ -359,7 +359,8 @@ export function ContractForm() {
             ))}
           <Button
             type="button"
-            variant="secondary"
+            className="mt-2"
+            // variant="secondary"
             onClick={() =>
               FarmersAppend({
                 farmer_id: "",
@@ -373,7 +374,7 @@ export function ContractForm() {
             Add Farmer
           </Button>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 border-gray-700 border-solid border-2 shadow-md shadow-gray-600 rounded-md p-6 mb-10">
           <FormLabel className="text-2xl mb-3">Contract Clauses</FormLabel>
           {ClausesFields.map((item, index) => (
             <div key={item.id} className="space-y-2">
@@ -385,21 +386,24 @@ export function ContractForm() {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel>Clause Type</FormLabel>
-                      <FormControl>
+                      
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
-                        >
+                        ><FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select a type" />
                           </SelectTrigger>
+                          </FormControl>
                           <SelectContent>
                             <SelectItem value="monitor">Monitor</SelectItem>
-                            <SelectItem value="condition">Condition</SelectItem>
+                            <SelectItem value="termination">Termination</SelectItem>
+                            <SelectItem value="dispute">Dispute settlement methods</SelectItem>
+                            {/* <SelectItem value="condition">Damages</SelectItem> */}
                             <SelectItem value="others">Others</SelectItem>
                           </SelectContent>
                         </Select>
-                      </FormControl>
+                      
                       <FormMessage />
                     </FormItem>
                   )}
@@ -447,7 +451,7 @@ export function ContractForm() {
           control={control}
           name="sealing_date"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
+            <FormItem className="flex flex-col border-gray-700 border-solid border-2 shadow-md shadow-gray-600 rounded-md p-6 mb-10">
               <FormLabel>Sealing Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
@@ -481,8 +485,8 @@ export function ContractForm() {
           )}
         />
         {/* Submit Button */}
-        {!form.formState.isValid && <p>Something is wrong</p>}
-        {JSON.stringify(form.formState.errors)}
+        {/* {!form.formState.isValid && <p>Something is wrong</p>}
+        {JSON.stringify(form.formState.errors)} */}
         <Button type="submit" disabled={form.formState.isSubmitting}>
           Submit
         </Button>
