@@ -10,14 +10,8 @@ export default function Login({ searchParams }: { searchParams: Message }) {
     // <form className=" flex flex-col  outline w-[30%] px-10 py-10 rounded-lg" >
     <>
     <div className="fixed  bg-opacity-60 backdrop-blur-sm "></div>
-<form className="relative flex flex-col outline w-[30%] px-10 py-10 rounded-lg shadow-lg bg-white">
+<form className="relative flex flex-col  backdrop-blur-xl backdrop:bg-slate-600 w-[30%] px-10 py-10 rounded-lg shadow-lg text-white/70 shadow-slate-600">
       <h1 className="text-2xl font-medium">Sign in</h1>
-      <p className="text-sm text-foreground">
-        Don't have an account?{" "}
-        <Link className="text-foreground font-medium underline" href="/sign-up">
-          Sign up
-        </Link>
-      </p>
       <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
         {searchParams.type !== "success" ? (
           <>
