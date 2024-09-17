@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { BuyerType, ContractFormValues, FarmerType } from "@/utils/types";
+import { revalidatePath } from "next/cache";
 //TODO: Organise the Actions.ts file into its separate functionality
 
 //export const signUpAction = async (formData: FormData) => {
@@ -505,6 +506,7 @@ export const createContract = async (contract_data: ContractFormValues) => {
       return { error: ContractFarmerError };
     }
   }
+  revalidatePath("/dashboard/contract");
   return { error: null };
 };
 
