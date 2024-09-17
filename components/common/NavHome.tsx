@@ -31,11 +31,29 @@ export default function NavBar({ absoluteLago }: { absoluteLago: boolean }) {
         <p className="font-bold text-lg">Krishi Setu</p>
       </div>
       <div className="flex justify-evenly items-center gap-5 font-bold text-xl">
-        <Button asChild variant="link" className="text-xl font-semibold">
+        <Button
+          asChild
+          variant="link"
+          size="sm"
+          className="text-xl font-semibold"
+        >
           <Link href="/dashboard/contract">Contracts</Link>
         </Button>
-        <Button asChild variant="link" className="text-xl font-semibold">
+        <Button
+          asChild
+          size="sm"
+          variant="link"
+          className="text-xl font-semibold"
+        >
           <Link href="/community">Community</Link>
+        </Button>
+        <Button
+          size="sm"
+          asChild
+          variant="link"
+          className="text-xl font-semibold"
+        >
+          <Link href="/dashboard/chat">Chat</Link>
         </Button>
         <AuthButton />
       </div>
