@@ -49,9 +49,6 @@ export function FarmerDetails({ data }: { data: FarmerType }) {
           detail={data.aadhar_number}
         />
       </CardContent>
-      <Button asChild>
-        <Link href="/dashboard/contract">Contract</Link>
-      </Button>
     </Card>
   );
 }
