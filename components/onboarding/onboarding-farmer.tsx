@@ -55,7 +55,7 @@ export function FarmerForm() {
   }, []);
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-96 space-y-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-96 space-y-2 outline rounded-lg p-5">
         <FormField
           control={form.control}
           name="name"

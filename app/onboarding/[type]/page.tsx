@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { type: string } }) {
     return redirect("/dashboard");
   }
   return (
-    <section className="min-h-[40rem] flex w-full items-center justify-center">
+    <section className="min-h-[90vh] flex w-full items-center justify-center">
       {params.type === "farmer" && <FarmerForm />}
       {params.type === "buyer" && <BuyerForm />}
     </section>

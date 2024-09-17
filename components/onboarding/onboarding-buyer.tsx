@@ -72,7 +72,7 @@ export function BuyerForm() {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-96 space-y-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-[40vw] space-y-2 outline p-10 rounded-md">
         <FormField
           control={form.control}
           name="name"
