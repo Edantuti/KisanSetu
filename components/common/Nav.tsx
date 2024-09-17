@@ -1,17 +1,17 @@
 // import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import AuthButton from '@/components/header-auth';
-import { headers } from 'next/headers';
+// import { headers } from 'next/headers';
 
 export default function NavBar() {
   // const pathname = usePathname();
-  const _headers = headers();
-  console.log(_headers);
-  const currentPathname = _headers.get('x-pathname');
-  console.log(currentPathname);
+  // const _headers = headers();
+  // console.log(_headers);
+  // const currentPathname = _headers.get('x-pathname');
+  // console.log(currentPathname);
 
   // Check if the current route is the home page
-  const isHomePage = currentPathname === '/';
+  const isHomePage = '';
 
   return (
     <nav className={`w-[100%] flex justify-between ${isHomePage ? 'absolute bg-transparent' : 'bg-[#599b1bb0]'} z-10  px-5 py-2`}
