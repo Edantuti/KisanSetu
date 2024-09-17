@@ -17,9 +17,15 @@ export const PdfGenerator = ({
   return (
     <div className="flex flex-col">
       <div ref={componentRef}>{children}</div>
+      <div className="flex gap-5 mt-10">
       <Button onClick={handlePrint} className="w-fit mx-auto">
         Print / Download as PDF
       </Button>
+      <Button className="w-fit mx-auto">
+        Continue for Digital Signature And E-Stamping
+      </Button>
+      </div>
+     
     </div>
   );
 };

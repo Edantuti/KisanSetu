@@ -8,8 +8,11 @@ export default async function Page({ params }: { params: { id: string } }) {
     return <>{JSON.stringify(error)}</>;
   }
   return (
+    <div className="flex justify-center p-10 max-w-[50]">
     <PdfGenerator name={data.name}>
-      <section className="mx-20 space-y-5 font-medium my-20 text-xs">
+      
+      <section className="mx-auto space-y-5 font-medium my-auto text-xs max-w-[80vw] ">
+        {/* <div> */}
         <h1 className="text-2xl text-center my-5 font-serif">AGREEMENT</h1>
         <p>
           This AGREEMENT made this day of{" "}
@@ -124,8 +127,11 @@ export default async function Page({ params }: { params: { id: string } }) {
             <h4>WITNESS</h4>
           </div>
         </div>
+        {/* </div> */}
       </section>
+      
     </PdfGenerator>
+    </div>
   );
 }
 //TODO: Add puppeteer for generating PDF
