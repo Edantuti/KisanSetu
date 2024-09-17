@@ -9,6 +9,8 @@ import Link from "next/link";
 import "./globals.css";
 import NavBar from "@/components/common/Nav";
 import Footer from "@/components/common/Footer";
+// import "@mantine/core/styles.css";
+// import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -27,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <head></head>
+      <head>{/*<ColorSchemeScript />*/}</head>
       <body className="bg-background text-foreground overflow-x-hidden ">
         <NavBar />
         {/*
@@ -76,6 +78,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         > */}
+        {/*<MantineProvider>{children}</MantineProvider>*/}
         {children}
         {/* </ThemeProvider> */}
         <Footer />
