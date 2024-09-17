@@ -22,6 +22,18 @@ import { changeBuyerClauses, changeFarmerClauses } from "@/app/actions";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+
+//TODO: Add deadline to each monitor clauses
+//TODO: Redirect after completion creation of the contract
+//TODO: Add deadline to each monitor clauses
 
 export function CheckboxContractClauses({
   type,
@@ -78,51 +90,48 @@ export function CheckboxContractClauses({
     <Dialog open={openDialog}>
       <Card className="w-full max-w-md p-4">
         <CardHeader>
-          <CardTitle>Monitor Clauses</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle>{description}</CardTitle>
+          <CardDescription className="space-y-1">
+            <p>Status</p>
+            {data.farmer && data.contractor ? (
+              <Badge>Completed</Badge>
+            ) : (
+              <Badge>Incomplete</Badge>
+            )}
+            <p className="px-1">Payment Status</p>
+            <span className="space-x-2">
+              {" "}
+              {data.contractor ? (
+                <Badge className="bg-green-600">Payment Done</Badge>
+              ) : (
+                <Badge>Incomplete Payment</Badge>
+              )}
+            </span>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-2 mb-2">
-            <Checkbox
-              id="option1"
-              checked={farmerOption}
-              disabled={data.farmer || type === "buyer"}
-              onCheckedChange={(checked) => {
-                setOpenDialog(true);
-              }}
-            />
-            <label htmlFor="option1" className="text-xs">
-              <div>
-                <p className="font-semibold">Farmer Option</p>
+            <p className="font-semibold">Farmer:</p>
 
-                {data.farmer_marked && (
-                  <span className="text-xs">
-                    Marked at{" "}
-                    {new Date(data.farmer_marked).toLocaleDateString()}
-                  </span>
-                )}
-              </div>
-            </label>
+            {data.farmer_marked ? (
+              <span className="text-xs">
+                Marked at {new Date(data.farmer_marked).toLocaleDateString()}
+              </span>
+            ) : (
+              <span className="text-xs">Unmarked</span>
+            )}
           </div>
 
           <div className="flex items-center space-x-2">
-            <Checkbox
-              id="option2"
-              checked={buyerOption}
-              disabled={data.contractor || type === "farmer"}
-              onCheckedChange={(checked) => {
-                setOpenDialog(true);
-              }}
-            />
-            <label htmlFor="option2" className="text-xs">
-              <p className="font-semibold">Buyer option </p>
-              {data.contractor_marked && (
-                <span className="text-xs">
-                  Marked at{" "}
-                  {new Date(data.contractor_marked).toLocaleDateString()}
-                </span>
-              )}
-            </label>
+            <p className="font-semibold">Buyer:</p>
+            {data.contractor_marked ? (
+              <span className="text-xs">
+                Marked at{" "}
+                {new Date(data.contractor_marked).toLocaleDateString()}
+              </span>
+            ) : (
+              <span className="text-xs">Unmarked</span>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -170,3 +179,105 @@ export function CheckboxContractClauses({
     </Dialog>
   );
 }
+
+export function MonitorContractChecker({
+  clauses,
+}: {
+  clauses: {
+    description: string | null;
+    MonitorClauses: {
+      clauses_id: string;
+      contractor: boolean;
+      contractor_marked: string | null;
+      farmer: boolean;
+      farmer_marked: string | null;
+      id: string;
+    }[];
+  }[];
+}) {
+  return (
+    <div className="w-fit flex flex-col gap-2 p-10">
+      <h1 className="text-xl antialiased font-semibold">
+        Clauses Status Update
+      </h1>
+      <span className="flex items-center gap-px">
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Monitor Clauses?" />
+          </SelectTrigger>
+          <SelectContent>
+            {clauses.map((value, index) => (
+              <SelectItem
+                key={value.description}
+                value={value.MonitorClauses[0].clauses_id}
+              >
+                Clause {index + 1}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </span>
+      <span className="flex items-center gap-px">
+        <Label htmlFor="due-date">Due Date :</Label>
+        <Input type="date" className="w-full" name="due-date" />
+      </span>
+      <span className="flex items-center gap-2">
+        <Input type="text" className="w-72" placeholder="Review" />
+        <Button>Update</Button>
+      </span>
+      <span className="flex items-center gap-2">
+        <Input type="file" className="w-72" placeholder="Image" />
+        <Button>Update</Button>
+      </span>
+      <span className="flex items-center gap-2">
+        <Input type="text" className="w-72" placeholder="E-signature" />
+        <Button>Submit</Button>
+      </span>
+    </div>
+  );
+}
+
+// <div className="flex items-center space-x-2 mb-2">
+//   <Checkbox
+//     id="option1"
+//     checked={farmerOption}
+//     disabled={data.farmer || type === "buyer"}
+//     onCheckedChange={(checked) => {
+//       setOpenDialog(true);
+//     }}
+//   />
+//   <label htmlFor="option1" className="text-xs">
+//     <div>
+//       <p className="font-semibold">Farmer Option</p>
+
+//       {data.farmer_marked && (
+//         <span className="text-xs">
+//           Marked at{" "}
+//           {new Date(data.farmer_marked).toLocaleDateString()}
+//         </span>
+//       )}
+//     </div>
+//   </label>
+// </div>
+// <div className="flex items-center space-x-2 mb-2">
+//   <Checkbox
+//     id="option1"
+//     checked={farmerOption}
+//     disabled={data.farmer || type === "buyer"}
+//     onCheckedChange={(checked) => {
+//       setOpenDialog(true);
+//     }}
+//   />
+//   <label htmlFor="option1" className="text-xs">
+//     <div>
+//       <p className="font-semibold">Farmer Option</p>
+
+//       {data.farmer_marked && (
+//         <span className="text-xs">
+//           Marked at{" "}
+//           {new Date(data.farmer_marked).toLocaleDateString()}
+//         </span>
+//       )}
+//     </div>
+//   </label>
+// </div>

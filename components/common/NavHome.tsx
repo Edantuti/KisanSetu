@@ -1,6 +1,8 @@
 // import { usePathname } from 'next/navigation';
 import Image from "next/image";
 import AuthButton from "@/components/header-auth";
+import Link from "next/link";
+import { Button } from "../ui/button";
 // import { headers } from 'next/headers';
 
 export default function NavBar({ absoluteLago }: { absoluteLago: boolean }) {
@@ -29,8 +31,12 @@ export default function NavBar({ absoluteLago }: { absoluteLago: boolean }) {
         <p className="font-bold text-lg">Krishi Setu</p>
       </div>
       <div className="flex justify-evenly items-center gap-5 font-bold text-xl">
-        <div>Community</div>
-        <div>Blogs</div>
+        <Button asChild variant="link" className="text-xl font-semibold">
+          <Link href="/dashboard/contract">Contracts</Link>
+        </Button>
+        <Button asChild variant="link" className="text-xl font-semibold">
+          <Link href="/community">Community</Link>
+        </Button>
         <AuthButton />
       </div>
     </nav>

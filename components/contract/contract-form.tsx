@@ -33,6 +33,7 @@ import ContractFarmerForm from "./contract-farmer-form";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { createContract } from "@/app/actions";
+import { useRouter } from "next/navigation";
 
 export function ContractForm() {
   const form = useForm<ContractFormValues>({
@@ -76,7 +77,7 @@ export function ContractForm() {
       })
       .catch((error) => console.error(error));
   }, []);
-
+  const router = useRouter();
   const { control, handleSubmit } = form;
   const {
     fields: ClausesFields,
@@ -100,6 +101,7 @@ export function ContractForm() {
     if (error) {
       console.error(error);
     }
+    router.push("/dashboard/contract");
   };
   function removeFarmerField(index: number) {
     const form_id = form.getValues().farmer[index].farmer_id;
@@ -386,24 +388,29 @@ export function ContractForm() {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel>Clause Type</FormLabel>
-                      
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        ><FormControl>
+
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select a type" />
                           </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="monitor">Monitor</SelectItem>
-                            <SelectItem value="termination">Termination</SelectItem>
-                            <SelectItem value="dispute">Dispute settlement methods</SelectItem>
-                            {/* <SelectItem value="condition">Damages</SelectItem> */}
-                            <SelectItem value="others">Others</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="monitor">Monitor</SelectItem>
+                          <SelectItem value="termination">
+                            Termination
+                          </SelectItem>
+                          <SelectItem value="dispute">
+                            Dispute settlement methods
+                          </SelectItem>
+                          {/* <SelectItem value="condition">Damages</SelectItem> */}
+                          <SelectItem value="others">Others</SelectItem>
+                        </SelectContent>
+                      </Select>
+
                       <FormMessage />
                     </FormItem>
                   )}
