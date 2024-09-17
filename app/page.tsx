@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 const MapComponent = dynamic(() => import('@/components/home/mapsection.jsx'), { ssr: false });
 import Image from 'next/image';
 import Schemes from '@/components/home/schemes'
+import Link from 'next/link';
 
 export default async function Index() {
   return (
@@ -79,7 +80,9 @@ export default async function Index() {
             />
             <p className='text-xl group-hover:scale-125 group-hover:text-white group-hover:mt-3'>Sell Harvest</p>
           </div>
-          <div className='flex flex-col justify-center items-center w-[15%] h-[100%] p-2 group hover:bg-[#a0785e]  hover:shadow-lg '>
+          <Link href={'/dashboard/contract/create'} className='w-[15%]'>
+          <div className='flex flex-col justify-center items-center p-2 group h-full hover:bg-[#a0785e]  hover:shadow-lg '>
+            
             <Image
               src="/images/home/inkpaper.svg"
               height={40}
@@ -88,7 +91,9 @@ export default async function Index() {
               className='w-[35%] group-hover:scale-125'
             />
             <p className='text-xl group-hover:scale-125 group-hover:mt-3 group-hover:text-white'>Create Contracts</p>
+            
           </div>
+          </Link>
           <div className='flex flex-col justify-center items-center w-[15%] h-[100%] p-2 group hover:bg-[#a0785e]  hover:shadow-lg '>
             <Image
               src="/images/home/coins.svg"

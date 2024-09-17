@@ -119,9 +119,9 @@ export function ContractForm() {
         className="container mx-auto mt-8 p-6 rounded-xl shadow-lg"
       >
         <img
-          src="https://picsum.photos/1200/400"
+          src="/images/contract/contract.jpg"
           alt="Contract Image"
-          className="w-full h-64 object-cover rounded-lg mb-6"
+          className="w-full h-83 object-cover rounded-lg mb-6"
         />
         <section className="p-6 mb-6 rounded-lg space-y-2">
           <h1 className="text-3xl font-bold mb-2">Contract</h1>
