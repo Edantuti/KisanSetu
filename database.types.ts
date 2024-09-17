@@ -178,15 +178,15 @@ export type Database = {
           company_id: string
           created_at: string
           description: string
-          end_date: string | null
+          end_date: string
           farmer_photo: string | null
           id: string
           name: string
           payment_terms: string | null
           performance_criteria: string | null
           representative: string
-          sealing_date: string | null
-          start_date: string | null
+          sealing_date: string
+          start_date: string
           status: string | null
           total_value: number | null
           updated_at: string
@@ -196,15 +196,15 @@ export type Database = {
           company_id: string
           created_at?: string
           description?: string
-          end_date?: string | null
+          end_date: string
           farmer_photo?: string | null
           id?: string
           name?: string
           payment_terms?: string | null
           performance_criteria?: string | null
           representative?: string
-          sealing_date?: string | null
-          start_date?: string | null
+          sealing_date: string
+          start_date: string
           status?: string | null
           total_value?: number | null
           updated_at?: string
@@ -214,15 +214,15 @@ export type Database = {
           company_id?: string
           created_at?: string
           description?: string
-          end_date?: string | null
+          end_date?: string
           farmer_photo?: string | null
           id?: string
           name?: string
           payment_terms?: string | null
           performance_criteria?: string | null
           representative?: string
-          sealing_date?: string | null
-          start_date?: string | null
+          sealing_date?: string
+          start_date?: string
           status?: string | null
           total_value?: number | null
           updated_at?: string

@@ -1,24 +1,53 @@
 import { redirect } from "next/navigation";
-import { getContractByBuyersID, getUserInfo, getUserStatus } from "../actions";
+import {
+  getContractByBuyersID,
+  getUserDetails,
+  getUserInfo,
+  getUserStatus,
+} from "../actions";
 import { createClient } from "@/utils/supabase/server";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { BuyerDetails } from "@/components/details/buyer-details";
+import { FarmerDetails } from "@/components/details/farmer-details";
 
 export default async function Page() {
-  const { data: userStatus, error: userStatusError } = await getUserStatus();
+  const { data: userStatus, error: userError } = await getUserStatus();
   if (!userStatus) {
     return redirect("/onboarding");
   }
-  const { data, error } = await createClient().from("Buyers").select();
+  const details = await getUserDetails();
+  if (!details) {
+    return redirect("/onboarding");
+  }
   return (
-    <section className="min-h-[40rem]">
-      {data &&
-        data.map((value) => {
-          //TODO: Request adding feature, with all the land other such details
-          return <p key={value.id}>Buyer:{value.name}</p>;
-        })}
-      <Button asChild size="sm">
-        <Link href={"/dashboard/contract"}>Contract</Link>
+    <section className="min-h-[60rem] flex flex-col items-center justify-center gap-2">
+      {userStatus.status === "buyer" && (
+        <BuyerDetails
+          data={{
+            state: details.address,
+            name: details.name,
+            gstin: details.gstin,
+            email: details.email,
+            address: details.address,
+            district: details.district,
+            pincode: details.pincode,
+          }}
+        />
+      )}
+      {userStatus.status === "farmer" && (
+        <FarmerDetails
+          data={{
+            name: details.name,
+            father_name: details.father_name,
+            date_of_birth: new Date(details.date_of_birth),
+            aadhar_number: details.aadhar_number,
+            phone_number: details.phone_number,
+          }}
+        />
+      )}
+      <Button asChild>
+        <Link href="/dashboard/contract">Contract</Link>
       </Button>
     </section>
   );

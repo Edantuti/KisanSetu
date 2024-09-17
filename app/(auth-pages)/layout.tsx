@@ -1,3 +1,4 @@
+import NavBar from "@/components/common/NavHome";
 import Image from "next/image";
 export default async function Layout({
   children,
@@ -5,12 +6,11 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" w-full flex gap-12 justify-start pl-[20vw] align-middle items-center h-[90vh]
-      " 
-      style={{background: 'url("/images/login.jpeg")', backgroundSize: 'cover',backgroundRepeat:'no-repeat' }}
-      >
-      {children}
-      {/* <Image
+    <>
+      <NavBar absoluteLago={true} />
+      <div className=" w-full flex gap-12 justify-start pl-[20vw] align-middle items-center h-[90vh] bg-[url('/images/login.jpeg')] bg-cover bg-no-repeat">
+        {children}
+        {/* <Image
         src="/images/login.jpeg"
         height={360}
         width={540}
@@ -18,6 +18,7 @@ export default async function Layout({
         alt="project logo"
         className='w-full h-full -z-10 '
       /> */}
-    </div>
+      </div>
+    </>
   );
 }

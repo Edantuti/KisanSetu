@@ -1,6 +1,7 @@
 import { getContractbyID } from "@/app/actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 //TODO: Generating PDF on click
 
@@ -93,8 +94,16 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       </section>
       <div className="flex justify-end space-x-4">
-        <Button variant="outline">Print</Button>
-        <Button variant="outline">Download PDF</Button>
+        <Button variant="outline" asChild>
+          <Link href={`/dashboard/contract/${params.id}/monitor`}>
+            Check Monitor Clauses
+          </Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href={`/dashboard/contract/${params.id}/print`}>
+            Download PDF
+          </Link>
+        </Button>
       </div>
     </section>
   );

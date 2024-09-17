@@ -9,6 +9,7 @@ import Link from "next/link";
 import "./globals.css";
 import NavBar from "@/components/common/NavHome";
 import Footer from "@/components/common/Footer";
+import Script from "next/script";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -27,8 +28,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+      <head>{/*<ColorSchemeScript />*/}</head>
       <body className="bg-background text-foreground overflow-x-hidden ">
-        <NavBar/>
+        <Script
+          src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"
+          strategy="afterInteractive" // Load after the page is interactive
+        />
+        <Script
+          src="https://mediafiles.botpress.cloud/974b2644-7598-4dce-a6ea-774e5cac35d3/webchat/v2.1/config.js"
+          strategy="afterInteractive"
+        />
         {/*
       <body className="bg-background text-foreground overflow-x-hidden">
         {/* <ThemeProvider
@@ -75,9 +84,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         > */}
-          {children}
+        {/*<MantineProvider>{children}</MantineProvider>*/}
+        {children}
         {/* </ThemeProvider> */}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );
