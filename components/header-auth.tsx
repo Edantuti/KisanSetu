@@ -2,13 +2,16 @@ import { getUserStatus, signOutAction } from "@/app/actions";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/utils/supabase/server";
+import { StatusIndicator } from "./status-indicator";
 
 export default async function AuthButton() {
   const {
     data: { user },
   } = await createClient().auth.getUser();
+
   return user ? (
     <div className="flex items-center gap-4">
+      <StatusIndicator userId={user.id} />
       <form action={signOutAction}>
         <Button type="submit" variant={"outline"} className="bg-[#a0806b]">
           Sign out
