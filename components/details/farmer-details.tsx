@@ -1,7 +1,9 @@
 import { FarmerType } from "@/utils/types";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { CalendarX, Phone, User } from "lucide-react";
+import { Button } from "../ui/button";
 import { ReactNode } from "react";
+import Link from "next/link";
 
 export function FarmerDetails({ data }: { data: FarmerType }) {
   return (
@@ -47,6 +49,9 @@ export function FarmerDetails({ data }: { data: FarmerType }) {
           detail={data.aadhar_number}
         />
       </CardContent>
+      <Button asChild>
+        <Link href="/dashboard/contract">Contract</Link>
+      </Button>
     </Card>
   );
 }
