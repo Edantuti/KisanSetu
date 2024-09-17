@@ -30,7 +30,6 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
       <head>{/*<ColorSchemeScript />*/}</head>
       <body className="bg-background text-foreground overflow-x-hidden ">
-        <NavBar />
         <Script
           src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"
           strategy="afterInteractive" // Load after the page is interactive
