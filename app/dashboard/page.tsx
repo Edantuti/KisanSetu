@@ -46,6 +46,9 @@ export default async function Page() {
           }}
         />
       )}
+      <Button asChild>
+        <Link href="/dashboard/contract">Contract</Link>
+      </Button>
     </section>
   );
 }
