@@ -1,4 +1,5 @@
 import { getContractbyID } from "@/app/actions";
+import ContractAnalysisTable from "@/components/contract/contract-analysis";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -88,20 +89,32 @@ export default async function Page({ params }: { params: { id: string } }) {
               {value.type === "condition" && (
                 <Badge className="bg-teal-600 mb-2">Conditional</Badge>
               )}
+              {value.type === "termination" && (
+                <Badge className="bg-red-600 mb-2">Termination</Badge>
+              )}
+              {value.type === "dispute" && (
+                <Badge className="bg-green-600 mb-2">Dispute settlement methods</Badge>
+              )}
               <p className="">{value.description}</p>
             </div>
           ))}
         </div>
       </section>
+      <ContractAnalysisTable/>
       <div className="flex justify-end space-x-4">
-        <Button variant="outline" asChild>
+        <Button variant="outline" className="bg-black text-white" asChild>
           <Link href={`/dashboard/contract/${params.id}/monitor`}>
             Check Monitor Clauses
           </Link>
         </Button>
-        <Button asChild variant="outline">
+        <Button asChild variant="outline" className="bg-black text-white">
           <Link href={`/dashboard/contract/${params.id}/print`}>
             Download PDF
+          </Link>
+        </Button>
+        <Button asChild variant="outline" className="bg-black text-white">
+          <Link href={`/dashboard/contract/`}>
+          Continue for Digital Signature And E-Stamping
           </Link>
         </Button>
       </div>
