@@ -3,6 +3,8 @@ import ContractAnalysisTable from "@/components/contract/contract-analysis";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
+import { ContractAttribtues } from "@/components/contract/contract-display";
 
 //TODO: Generating PDF on click
 
@@ -13,10 +15,12 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
   return (
     <section className="container mx-auto mt-8 p-6 rounded-xl shadow-lg">
-      <img
-        src="https://picsum.photos/1200/400"
+      <Image
+        src="/images/contract/contract.jpg"
         alt="Contract Image"
-        className="w-full h-64 object-cover rounded-lg mb-6"
+        width="1200"
+        height="400"
+        className="w-full h-fit object-cover rounded-lg mb-6"
       />
 
       <section className="p-6 mb-6 rounded-lg">
@@ -25,32 +29,26 @@ export default async function Page({ params }: { params: { id: string } }) {
         <p className="">{data.description}</p>
       </section>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div className="border rounded-md p-4">
-          <h3 className="font-semibold">Representative</h3>
-          <p className="">{data.representative}</p>
-        </div>
-        <div className="border rounded-md p-4">
-          <h3 className="font-semibold">Total Value</h3>
-          <p className="">{data.total_value}</p>
-        </div>
-        <div className="border rounded-md p-4">
-          <h3 className="font-semibold">Performance Criteria</h3>
-          <p className="">{data.performance_criteria}</p>
-        </div>
-        <div className="border rounded-md p-4">
-          <h3 className="font-semibold">Payment Terms</h3>
-          <p className="">{data.payment_terms}</p>
-        </div>
-        <div className="border rounded-md p-4">
-          <h3 className="font-semibold">Starting Date</h3>
-          <p className="">{new Date(data.start_date!).toDateString()}</p>
-        </div>
-        <div className="border rounded-md p-4">
-          <h3 className="font-semibold">Ending Date</h3>
-          <p className="">{new Date(data.end_date!).toDateString()}</p>
-        </div>
+        <ContractAttribtues type="Representative" data={data.representative} />
+        <ContractAttribtues
+          type="Total Value"
+          data={data.total_value!.toString()}
+        />
+        <ContractAttribtues
+          type="Performance Criteria"
+          data={data.performance_criteria!}
+        />
+        <ContractAttribtues type="Payment Terms" data={data.payment_terms!} />
+        <ContractAttribtues
+          type="Starting Date"
+          data={new Date(data.start_date!).toDateString()}
+        />
+        <ContractAttribtues
+          type="Ending Date"
+          data={new Date(data.end_date!).toDateString()}
+        />
       </section>
-      <section className="p-6 rounded-lg mb-6">
+      <section className="p-6 rounded-lg mb-6 border border-solid border-neutral-300">
         <h2 className="text-2xl font-bold mb-4">Participating Farmers</h2>
         <table className="w-full">
           <thead>
@@ -75,7 +73,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           </tbody>
         </table>
       </section>
-      <section className="p-6 rounded-lg mb-6">
+      <section className="p-6 rounded-lg mb-6  border border-solid border-neutral-300">
         <h2 className="text-2xl font-bold">Contract Clauses</h2>
         <div className="space-y-4">
           {data.Clauses.map((value) => (
@@ -93,14 +91,16 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <Badge className="bg-red-600 mb-2">Termination</Badge>
               )}
               {value.type === "dispute" && (
-                <Badge className="bg-green-600 mb-2">Dispute settlement methods</Badge>
+                <Badge className="bg-green-600 mb-2">
+                  Dispute settlement methods
+                </Badge>
               )}
               <p className="">{value.description}</p>
             </div>
           ))}
         </div>
       </section>
-      <ContractAnalysisTable/>
+      <ContractAnalysisTable />
       <div className="flex justify-end space-x-4">
         <Button variant="outline" className="bg-black text-white" asChild>
           <Link href={`/dashboard/contract/${params.id}/monitor`}>
@@ -114,7 +114,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </Button>
         <Button asChild variant="outline" className="bg-black text-white">
           <Link href={`/dashboard/contract/`}>
-          Continue for Digital Signature And E-Stamping
+            Continue for Digital Signature And E-Stamping
           </Link>
         </Button>
       </div>

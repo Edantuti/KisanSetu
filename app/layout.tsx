@@ -1,13 +1,5 @@
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
 import { GeistSans } from "geist/font/sans";
-import { ThemeProvider } from "next-themes";
-import Link from "next/link";
 import "./globals.css";
-import NavBar from "@/components/common/NavHome";
 import Footer from "@/components/common/Footer";
 import Script from "next/script";
 
@@ -28,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
-      <head>{/*<ColorSchemeScript />*/}</head>
+      <head></head>
       <body className="bg-background text-foreground overflow-x-hidden ">
         <Script
           src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"
@@ -84,7 +76,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         > */}
-        {/*<MantineProvider>{children}</MantineProvider>*/}
         {children}
         {/* </ThemeProvider> */}
         <Footer />
