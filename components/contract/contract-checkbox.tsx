@@ -84,6 +84,7 @@ export function CheckboxContractClauses({
   if (loading) {
     return <>Loading...</>;
   }
+  // console.log(type,data,description);
 
   //TODO: Checkbox dialog
   return (
@@ -209,7 +210,7 @@ export function MonitorContractChecker({
             {clauses.map((value, index) => (
               <SelectItem
                 key={value.description}
-                value={value.MonitorClauses[0].clauses_id}
+                value={value.MonitorClauses[0]?.clauses_id}
               >
                 Clause {index + 1}
               </SelectItem>
