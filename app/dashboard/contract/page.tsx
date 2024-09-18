@@ -8,7 +8,7 @@ export default async function Page() {
   const { data } = await getUserStatus();
   //TODO: Converting it into two individual components
   return (
-    <section className="min-h-[50rem] p-10 bg-[#ca8f5bb9] -z-10" >
+    <section className="min-h-[50rem] p-10 bg-[#f4d8bf] -z-10" >
       <div style={{
 
 // backgroundPosition: 'center 70px', 
@@ -20,7 +20,7 @@ export default async function Page() {
         {data?.status === "buyer" && <ContractBuyer />}
         {data?.status === "farmer" && <ContractFarmer />}
         {data?.status === "buyer" && (
-          <Button asChild className="w-96 h-full bg-[#e2a66e]" variant={"outline"}>
+          <Button asChild className="w-96 h-full bg-[#e18e41] bg-opacity-55 backdrop-blur-md rounded-lg shadow-lg shadow-[#cb8f56] transition-transform transform hover:scale-105 hover:shadow-xl hover:bg-[#c08854] hover:bg-opacity-30" variant={"outline"}>
             <Link href="/dashboard/contract/create">New Contracts +</Link>
           </Button>
         )}
