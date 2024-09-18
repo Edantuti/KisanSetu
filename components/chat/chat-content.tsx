@@ -178,14 +178,14 @@ export function ChatContent({ id }: { id: string }) {
           <>
             {value.to === user && (
               <div key={value.id} className="flex items-start">
-                <div className="bg-secondary p-3 rounded-lg max-w-[70%]">
+                <div className="bg-[#C3AC98] p-3 rounded-lg max-w-[70%]">
                   <p>{value.message}</p>
                 </div>
               </div>
             )}
             {value.from === user && (
               <div key={value.id} className="flex items-start justify-end">
-                <div className="bg-primary text-primary-foreground p-3 rounded-lg max-w-[70%]">
+                <div className="bg-[#d9b18b] p-3 rounded-lg max-w-[70%]">
                   <p>{value.message}</p>
                 </div>
               </div>

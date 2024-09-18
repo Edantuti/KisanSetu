@@ -17,9 +17,10 @@ export function ChatHeader({ id }: { id: string }) {
   }, []);
 
   return (
-    <header className="border-b border-border p-4 flex items-center">
+    <header className="border-b border-[#a88c72] p-4 flex items-center">
       <div>
         <h2 className="text-lg font-semibold">{user}</h2>
+        <p className="text-sm">+916281506041</p>
       </div>
     </header>
   );
