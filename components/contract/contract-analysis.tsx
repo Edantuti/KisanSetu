@@ -11,6 +11,11 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 // Dummy data
+// 1 & 2 == others
+// 3 & 5 == monitor
+// 6 == Dispute Settlement Methods
+// 4 = termination
+// The borrower agrees to make monthly installment payments of the principal and interest, due on the last day of each month. Each payment must be accompanied by a digital signature from both parties to acknowledge receipt and completion of payment. Failure to make timely payments or sign the acknowledgment will result in a 5% late fee on the outstanding balance and may trigger further legal action as specified herein.
 const contractData = [
   {
     "contract_text": "The party of the first part agrees to indemnify and hold harmless the party of the second part from any and all claims, liabilities, and damages arising from the engagement under this agreement, including but not limited to acts of negligence, gross negligence, and willful misconduct.",
