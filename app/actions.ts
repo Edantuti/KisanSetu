@@ -204,7 +204,7 @@ export const createFarmerData = async (farmer: FarmerType) => {
   }
   const { data: userData, error: FarmerStatusError } = await supabase
     .from("users")
-    .insert({ id: user.id, status: "farmer" })
+    .insert({ id: user.id, status: "farmer", name: farmer.name })
     .select()
     .single();
   if (FarmerStatusError) {
@@ -237,7 +237,7 @@ export const createBuyerData = async (buyer: BuyerType) => {
   }
   const { data: userData, error: BuyerStatusError } = await supabase
     .from("users")
-    .insert({ id: user.id, status: "buyer" })
+    .insert({ id: user.id, status: "buyer", name: buyer.name })
     .select()
     .single();
   if (BuyerStatusError) {
@@ -515,7 +515,8 @@ export const getMonitorClauses = async (contract_id: string) => {
   const { data: Clauses, error: ClausesError } = await supabase
     .from("Clauses")
     .select("description,MonitorClauses(*)")
-    .eq("contract_id", contract_id);
+    .eq("contract_id", contract_id)
+    .eq("type", "monitor");
   if (ClausesError) {
     return { data: null, error: ClausesError };
   }
