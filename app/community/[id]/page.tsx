@@ -34,6 +34,7 @@ const farmers: (FarmerType & { id: string })[] = [
 
 export default function Page() {
   return (
+    <div className="bg-[#f4d8bf] pt-20">
     <section className="container mx-auto px-4 py-8 min-h-screen">
       <h1 className="text-3xl font-bold mb-8">
         Community Members - National Farmers Union (NFU)
@@ -138,5 +139,6 @@ export default function Page() {
         </div>
       </section>
     </section>
+    </div>
   );
 }
