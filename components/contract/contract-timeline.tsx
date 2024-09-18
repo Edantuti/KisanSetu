@@ -30,7 +30,7 @@ export function ContractTimeline({
 }) {
   const dates = ["2024-05-20", "2024-06-21", "2024-07-21"];
   return (
-    <div className="w-full ml-40">
+    <div className="w-[30rem] ml-auto">
       <ContractTimelineComponent
         time={new Date(start_date).toDateString()}
         Component={
@@ -78,9 +78,9 @@ export function ContractTimelineComponent({
         </span>
       </div>
 
-      <div className="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-gray-200 dark:after:bg-neutral-700">
+      <div className="relative last:after:hidden after:absolute after:top-7 after:bottom-0 after:start-3.5 after:w-px after:-translate-x-[0.5px] after:bg-[#d9b18b] dark:after:bg-neutral-700">
         <div className="relative z-10 size-7 flex justify-center items-center">
-          <div className="size-2 rounded-full bg-gray-400 dark:bg-neutral-600"></div>
+          <div className="size-2 rounded-full bg-[#d9b18b] dark:bg-neutral-600"></div>
         </div>
       </div>
 

@@ -35,14 +35,14 @@ export default async function Page({ params }: { params: { id: string } }) {
     return <>{JSON.stringify(clauses_error)}</>;
   }
   return (
-    <section className="flex min-h-screen items-center justify-between">
+    <section className="flex min-h-screen items-center justify-between bg-[#f4d8bf]">
       <ContractTimeline
         start_date={Dates!.start_date}
         end_date={Dates!.end_date}
         data={data!}
         clauses={clauses}
       />
-      <section className=" w-full h-full">
+      <section className="relative w-1/2 h-full">
         <MonitorContractChecker clauses={clauses} />
       </section>
     </section>

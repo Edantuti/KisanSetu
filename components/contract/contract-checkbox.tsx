@@ -88,16 +88,16 @@ export function CheckboxContractClauses({
   //TODO: Checkbox dialog
   return (
     <Dialog open={openDialog}>
-      <Card className="w-full max-w-md p-4">
+      <Card className="w-full max-w-md p-4 bg-[#d9b18b]">
         <CardHeader>
           <CardDescription className="space-y-1">
-            <p>Status</p>
+            <p className="text-black">Status</p>
             {data.farmer && data.contractor ? (
               <Badge>Completed</Badge>
             ) : (
               <Badge>Incomplete</Badge>
             )}
-            <p className="px-1">Payment Status</p>
+            <p className="text-black px-1">Payment Status</p>
             <span className="space-x-2">
               {" "}
               {data.contractor ? (
@@ -194,13 +194,20 @@ export function MonitorContractChecker({
     }[];
   }[];
 }) {
+  const [value, setValue] = useState<string>("");
+  function handleChange(value: string) {
+    setValue(
+      clauses.filter((val) => val.MonitorClauses[0]?.clauses_id === value)[0]
+        .description!,
+    );
+  }
   return (
-    <div className="w-fit flex flex-col gap-2 p-10">
+    <div className="fixed top-1/2 -translate-y-1/2 right-20 w-fit flex flex-col gap-2 p-10">
       <h1 className="text-xl antialiased font-semibold">
         Clauses Status Update
       </h1>
       <span className="flex items-center gap-px">
-        <Select>
+        <Select onValueChange={handleChange}>
           <SelectTrigger>
             <SelectValue placeholder="Monitor Clauses?" />
           </SelectTrigger>
@@ -209,13 +216,18 @@ export function MonitorContractChecker({
               <SelectItem
                 key={value.description}
                 value={value.MonitorClauses[0]?.clauses_id}
+                className="w-96"
               >
-                Clause {index + 1}
+                {value.description?.substring(0, 20)}.....
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </span>
+      <div className="my-2">
+        <h1 className="text-lg font-semibold">Clauses Description</h1>
+        <p className="w-96">{value}</p>
+      </div>
       <span className="flex items-center gap-px">
         <Label htmlFor="due-date">Due Date :</Label>
         <Input type="date" className="w-full" name="due-date" />
