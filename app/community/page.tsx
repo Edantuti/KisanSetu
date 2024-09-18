@@ -367,13 +367,13 @@ export default function Page() {
         Communities
       </h1>
       <div className="flex gap-5 h-10">
-        <button className="bg-[#de914e] p-2 rounded-md  ml-7 font-semibold text-l hover:translate-y-1 hover:bg-[#cb8f56] hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+        <button className="bg-[#c79370] p-2 rounded-md  ml-7 font-semibold text-l hover:translate-y-1 hover:bg-[#cb8f56] hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
           Create Community +
         </button>
 
         <div className="flex gap-4 mb-4 h-full">
         <select
-          className="bg-[#de914e] font-semibold text-l p-2 h-full rounded-md"
+          className="bg-[#c79370] font-semibold text-l p-2 h-full rounded-md"
           value={selectedState}
           onChange={(e) => setSelectedState(e.target.value)}
         >
@@ -387,7 +387,7 @@ export default function Page() {
 
         {selectedState && (
           <select
-            className="bg-[#de914e] font-semibold text-l p-2 h-full rounded-md"
+            className="bg-[#c79370] font-semibold text-l p-2 h-full rounded-md"
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
           >
@@ -423,22 +423,22 @@ export default function Page() {
               <CardContent>
                 <div className="flex flex-col justify-center items-center text-center font-bold">
                   <div className="border-t border-gray-700 w-full my-2"></div>
-                  <h3 className="text-lg font-semibold text-[#c37833]">Location</h3>
+                  <h3 className="text-lg font-semibold text-[#a06e4c]">Location</h3>
                   <div className="border-t border-gray-700 w-full my-2"></div>
                   <p>
                     District:
-                    <span className="text-sm text-[#c37833]"> {data.district}</span>
+                    <span className="text-sm text-[#a06e4c]"> {data.district}</span>
                   </p>
                   <p>
-                    State: <span className="text-sm text-[#c37833]">{data.state}</span>
+                    State: <span className="text-sm text-[#a06e4c]">{data.state}</span>
                   </p>
                   <p>
                     Pincode:
-                    <span className="text-sm text-[#c37833]">{data.pincode}</span>
+                    <span className="text-sm text-[#a06e4c]">{data.pincode}</span>
                   </p>
                 </div>
                 <div className="flex justify-center items-center text-center mt-6 space-x-4">
-                  <button className="bg-[#de914e] p-2 rounded-md font-semibold text-l hover:translate-y-1 hover:bg-[#cb8f56] hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                  <button className="bg-[#c79370] p-2 rounded-md font-semibold text-l hover:translate-y-1 hover:bg-[#c79370] hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
                     Join Community
                   </button>
                 </div>
