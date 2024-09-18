@@ -66,6 +66,45 @@ export type Database = {
           },
         ]
       }
+      Chat: {
+        Row: {
+          created_at: string
+          from: string
+          id: string
+          message: string
+          to: string
+        }
+        Insert: {
+          created_at?: string
+          from: string
+          id?: string
+          message: string
+          to: string
+        }
+        Update: {
+          created_at?: string
+          from?: string
+          id?: string
+          message?: string
+          to?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Chat_from_fkey"
+            columns: ["from"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userid"]
+          },
+          {
+            foreignKeyName: "Chat_to_fkey"
+            columns: ["to"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userid"]
+          },
+        ]
+      }
       Clauses: {
         Row: {
           contract_id: string | null
@@ -578,6 +617,48 @@ export type Database = {
           },
         ]
       }
+      Sentiment: {
+        Row: {
+          clauses_id: string
+          contract_id: string
+          created_at: string
+          id: string
+          sentiment: boolean
+          simplified_text: string
+        }
+        Insert: {
+          clauses_id: string
+          contract_id: string
+          created_at?: string
+          id?: string
+          sentiment?: boolean
+          simplified_text?: string
+        }
+        Update: {
+          clauses_id?: string
+          contract_id?: string
+          created_at?: string
+          id?: string
+          sentiment?: boolean
+          simplified_text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Sentiment_clauses_id_fkey"
+            columns: ["clauses_id"]
+            isOneToOne: false
+            referencedRelation: "Clauses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Sentiment_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "Contract"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       StorageEntity: {
         Row: {
           capacity: number | null
@@ -630,18 +711,21 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          name: string
           status: Database["public"]["Enums"]["status"]
           userid: string
         }
         Insert: {
           created_at?: string
           id: string
+          name?: string
           status?: Database["public"]["Enums"]["status"]
           userid?: string
         }
         Update: {
           created_at?: string
           id?: string
+          name?: string
           status?: Database["public"]["Enums"]["status"]
           userid?: string
         }
