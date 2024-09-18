@@ -85,13 +85,11 @@ export function CheckboxContractClauses({
     return <>Loading...</>;
   }
   // console.log(type,data,description);
-
   //TODO: Checkbox dialog
   return (
     <Dialog open={openDialog}>
       <Card className="w-full max-w-md p-4">
         <CardHeader>
-          <CardTitle>{description}</CardTitle>
           <CardDescription className="space-y-1">
             <p>Status</p>
             {data.farmer && data.contractor ? (
