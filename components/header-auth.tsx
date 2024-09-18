@@ -13,7 +13,7 @@ export default async function AuthButton() {
     <div className="flex items-center gap-4">
       <StatusIndicator userId={user.id} />
       <form action={signOutAction}>
-        <Button type="submit" variant={"outline"} className="bg-[#a0806b]">
+        <Button type="submit" variant={"outline"} className="bg-[#c79370]">
           Sign out
         </Button>
       </form>
