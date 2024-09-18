@@ -34,7 +34,7 @@ export async function ContractBuyer() {
     <>
       {!BuyerContractError &&
         BuyerContracts.map((value) => (
-          <Card key={value.id} className="w-96 dark:bg-gray-900 bg-gray-100">
+          <Card key={value.id} className="w-96 ml-2 text-[text-[#c37833]] bg-[#e18e41] bg-opacity-55 backdrop-blur-md rounded-lg shadow-lg shadow-[#cb8f56] transition-transform transform hover:scale-105 hover:shadow-xl hover:bg-[#c08854] hover:bg-opacity-30">
             <CardHeader className="space-y-2">
               <h1 className="text-2xl font-semibold capitalize">
                 <Button
