@@ -192,157 +192,173 @@ const farmData = [
 ];
 const buyData = [
   {
-    name: "Organic Pesticides",
+    company: "AgroTech Solutions",
+    buyer: "GreenValley Farms",
     description:
       "Growing demand for organic pesticides to protect crops without harming the soil.",
     location: {
-      address: "Plot 101, Green Valley",
+      address: "Plot 102, Green Valley",
       district: "Nashik",
       city: "Nashik",
     },
   },
   {
-    name: "Tractors",
+    company: "TractorCo",
+    buyer: "Punjab Agriculture Corp",
     description:
       "High demand for modern, fuel-efficient tractors for large-scale farming.",
     location: {
-      address: "Sector 7, Industrial Area",
+      address: "Sector 8, Industrial Area",
       district: "Ludhiana",
       city: "Ludhiana",
     },
   },
   {
-    name: "Irrigation Pipes",
+    company: "IrrigatePro",
+    buyer: "WaterWorks Farmers",
     description:
       "Need for high-quality irrigation pipes for efficient water usage in agriculture.",
     location: {
-      address: "44 Farmer Street",
+      address: "45 Farmer Street",
       district: "Coimbatore",
       city: "Coimbatore",
     },
   },
   {
-    name: "Cold Storage Facilities",
+    company: "ColdChain Systems",
+    buyer: "FreshProduce Ltd.",
     description:
       "Rising demand for cold storage to preserve fresh produce for longer durations.",
     location: {
-      address: "11 Warehousing Complex",
+      address: "12 Warehousing Complex",
       district: "Ahmedabad",
       city: "Ahmedabad",
     },
   },
   {
-    name: "Hybrid Seeds",
+    company: "HybridSeed Corp",
+    buyer: "Guntur Agri Supply",
     description:
       "Demand for hybrid seeds to improve crop yields and increase resistance to diseases.",
     location: {
-      address: "Plot 33, Seed Hub",
+      address: "Plot 34, Seed Hub",
       district: "Guntur",
       city: "Guntur",
     },
   },
   {
-    name: "Fertilizers",
+    company: "FertilizerX",
+    buyer: "Kanpur Agri Depot",
     description:
       "Increased demand for organic and chemical fertilizers to boost crop productivity.",
     location: {
-      address: "Plant 66, Fertilizer Market",
+      address: "Plant 67, Fertilizer Market",
       district: "Kanpur",
       city: "Kanpur",
     },
   },
   {
-    name: "Greenhouses",
+    company: "Greenhouse Technologies",
+    buyer: "Pune Horticulture Farms",
     description:
       "Growing need for greenhouses to protect crops from adverse weather conditions.",
     location: {
-      address: "77 Green Estate",
+      address: "78 Green Estate",
       district: "Pune",
       city: "Pune",
     },
   },
   {
-    name: "Solar Water Pumps",
+    company: "SolarFlow Inc.",
+    buyer: "Nagpur Sustainable Farms",
     description:
       "Increasing demand for solar-powered water pumps to support sustainable irrigation.",
     location: {
-      address: "Plot 55, Renewable Energy Park",
+      address: "Plot 56, Renewable Energy Park",
       district: "Nagpur",
       city: "Nagpur",
     },
   },
   {
-    name: "Micro-irrigation Systems",
+    company: "MicroIrrigation Tech",
+    buyer: "Rajkot Drylands Association",
     description:
       "Rising demand for micro-irrigation systems to optimize water use in dry regions.",
     location: {
-      address: "88 Agri Tools Market",
+      address: "89 Agri Tools Market",
       district: "Rajkot",
       city: "Rajkot",
     },
   },
   {
-    name: "Farm Drones",
+    company: "AgriDrones Inc.",
+    buyer: "Hyderabad Agro Monitor",
     description:
       "Need for drones to monitor crop health, manage irrigation, and apply fertilizers.",
     location: {
-      address: "11 Drone Lane",
+      address: "12 Drone Lane",
       district: "Hyderabad",
       city: "Hyderabad",
     },
   },
   {
-    name: "Storage Silo",
+    company: "Silo Solutions",
+    buyer: "Bhopal Agri Storage",
     description:
       "Growing demand for storage silos to store grains and other agricultural products.",
     location: {
-      address: "Plot 44, Agro Industrial Area",
+      address: "Plot 45, Agro Industrial Area",
       district: "Bhopal",
       city: "Bhopal",
     },
   },
   {
-    name: "Soil Testing Kits",
+    company: "SoilTech Innovations",
+    buyer: "Jaipur Farming Co-op",
     description:
       "Increased need for soil testing kits to monitor soil health and optimize fertilizers.",
     location: {
-      address: "22 Soil Science Avenue",
+      address: "23 Soil Science Avenue",
       district: "Jaipur",
       city: "Jaipur",
     },
   },
   {
-    name: "Biodegradable Packaging",
+    company: "EcoPack Solutions",
+    buyer: "Kochi Organic Markets",
     description:
       "Demand for eco-friendly, biodegradable packaging for agricultural produce.",
     location: {
-      address: "Plot 10, Eco-Friendly Hub",
+      address: "Plot 11, Eco-Friendly Hub",
       district: "Kochi",
       city: "Kochi",
     },
   },
   {
-    name: "Farm Loans",
+    company: "AgriFinance Ltd.",
+    buyer: "Patna Small Farmers Co-op",
     description:
       "Growing need for financial services and farm loans to support small farmers.",
     location: {
-      address: "Plot 9, Finance Sector",
+      address: "Plot 10, Finance Sector",
       district: "Patna",
       city: "Patna",
     },
   },
   {
-    name: "Precision Farming Tools",
+    company: "Precision Farming Solutions",
+    buyer: "Bengaluru High-Tech Farms",
     description:
       "Need for tools that support precision farming for more efficient use of resources.",
     location: {
-      address: "56 Innovation Park",
+      address: "57 Innovation Park",
       district: "Bengaluru",
       city: "Bengaluru",
     },
   },
   {
-    name: "Crop Insurance",
+    company: "AgriShield Insurance",
+    buyer: "Chandigarh Crop Protection",
     description:
       "Rising demand for crop insurance to protect farmers from unpredictable weather.",
     location: {
@@ -352,41 +368,45 @@ const buyData = [
     },
   },
   {
-    name: "Agri-Processing Units",
+    company: "AgriProcess Tech",
+    buyer: "Surat Agri-Processing Co.",
     description:
       "Increased need for processing units to add value to raw agricultural products.",
     location: {
-      address: "Plant 11, Agri-Processing Zone",
+      address: "Plant 12, Agri-Processing Zone",
       district: "Surat",
       city: "Surat",
     },
   },
   {
-    name: "Livestock Feed",
+    company: "Livestock Nutrition",
+    buyer: "Amritsar Feed Suppliers",
     description:
       "Growing demand for high-quality livestock feed to support dairy and poultry farming.",
     location: {
-      address: "33 Feed Market",
+      address: "34 Feed Market",
       district: "Amritsar",
       city: "Amritsar",
     },
   },
   {
-    name: "Aquaculture Equipment",
+    company: "AquaTech Equipments",
+    buyer: "Visakhapatnam Fish Farmers",
     description:
       "Rising need for advanced aquaculture equipment to support fish farming.",
     location: {
-      address: "Plot 18, Coastal Zone",
+      address: "Plot 19, Coastal Zone",
       district: "Visakhapatnam",
       city: "Visakhapatnam",
     },
   },
   {
-    name: "Organic Manure",
+    company: "BioFert Solutions",
+    buyer: "Thrissur Organic Farms",
     description:
       "Demand for organic manure to improve soil fertility and promote sustainable farming.",
     location: {
-      address: "87 Manure Depot",
+      address: "88 Manure Depot",
       district: "Thrissur",
       city: "Thrissur",
     },
@@ -463,9 +483,14 @@ export function MarketDisplay() {
       </TabsContent>
       <TabsContent value="buyer" className="gap-2 flex flex-wrap">
         {buyerCrops.map((value) => (
-          <Card className="w-96 bg-orange-100" key={value.name}>
+          <Card
+            className="w-96 bg-orange-100"
+            key={value.buyer + value.company}
+          >
             <CardHeader>
-              <h2 className="text-lg font-medium">{value.name}</h2>
+              <h2 className="text-lg font-medium">
+                {value.buyer} - {value.company}
+              </h2>
               <CardDescription>
                 Description: {value.description}
               </CardDescription>
