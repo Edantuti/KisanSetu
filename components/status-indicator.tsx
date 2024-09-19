@@ -9,7 +9,7 @@ export async function StatusIndicator({ userId }: { userId: string }) {
     .single();
   return (
     <div>
-      Logged In <span className="capitalize">({userStatus!.status})</span>
+      Logged In <span className="capitalize">({userStatus?.status})</span>
     </div>
   );
 }
