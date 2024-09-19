@@ -59,6 +59,7 @@ export const phoneAction = async (formData: FormData) => {
   const phone = formData.get("phone")?.toString();
   if (!phone) return;
   const { data, error } = await supabase.auth.signInWithOtp({ phone: phone });
+  // const { data, error } = await supabase.auth.signInAnonymously();
   console.log(data);
   if (error) {
     return encodedRedirect("error", "/sign-in", error.message);
@@ -70,6 +71,12 @@ export const phoneAction = async (formData: FormData) => {
     phone,
   );
 };
+export const AnonAction = async () => {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInAnonymously();
+  return redirect("/onboarding");
+};
+
 export const verifyOTP = async (formData: FormData, phone: string) => {
   const supabase = createClient();
   //TODO: Resolved very soon
