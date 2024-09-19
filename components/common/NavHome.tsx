@@ -6,15 +6,6 @@ import { Button } from "../ui/button";
 // import { headers } from 'next/headers';
 
 export default function NavBar({ absoluteLago }: { absoluteLago: boolean }) {
-  // const pathname = usePathname();
-  // const _headers = headers();
-  // console.log(_headers);
-  // const currentPathname = _headers.get('x-pathname');
-  // console.log(currentPathname);
-
-  // Check if the current route is the home page
-  const isHomePage = "";
-
   return (
     <nav
       className={`w-[100%] ${!absoluteLago && `bg-[#f4d8bf]`} flex justify-between ${absoluteLago && "absolute"} backdrop-blur-xl backdrop:bg-slate-600 z-10  px-5 py-2`}
