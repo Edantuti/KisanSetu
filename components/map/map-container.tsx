@@ -33,9 +33,9 @@ const Map = (Map: MapProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {MapNearValue.get(location).map((value: any) => (
+      {MapNearValue.get(location).map((value: any, index: number) => (
         <Marker position={value} draggable={false}>
-          <Popup></Popup>
+          <Popup>Warehouse {index + 1}</Popup>
         </Marker>
       ))}
       <ChangeView />
