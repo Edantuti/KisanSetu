@@ -58,7 +58,10 @@ export default function Login({ searchParams }: { searchParams: Message }) {
         </div>
       </form>
       <form className="relative flex flex-col  backdrop-blur-xl backdrop:bg-slate-600 w-[30%] px-10 py-10 rounded-lg shadow-lg text-white/70 shadow-slate-600">
-        <h2>Kindly use the below button, specific users</h2>
+        <h2>
+          Kindly use the below button, currently specific users can access the
+          phone login feature.
+        </h2>
         <SubmitButton pendingText="Signing In..." formAction={AnonAction}>
           Anonymous Sign In
         </SubmitButton>
