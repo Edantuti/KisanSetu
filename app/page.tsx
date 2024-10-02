@@ -61,7 +61,9 @@ export default async function Index() {
         </div>
       </div>
       <div className="h-[18vh] w-full bg-[#c8aa8b] flex justify-center  z-20">
-        <div className="flex flex-col justify-center items-center w-[15%] h-[100%] mr-[5%]  ">
+        <Link href={"/map"} className="w-[17%] mr-[5%]">
+        <div className="flex flex-col justify-center items-center  h-[100%] mr-[5%]  ">
+        
           <div className="w-[100%] h-full flex flex-col justify-center items-center bg-[#a0785e] ml-[10vw] hover:outline p-4">
             <Image
               src="/images/home/nav.svg"
@@ -73,7 +75,9 @@ export default async function Index() {
             <p className="text-xl text-white">Locate Farm</p>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center w-[15%] h-[100%] p-2 group hover:bg-[#a0785e]  hover:shadow-xl   z-2 ">
+        </Link>
+        <Link href={"/market"} className="w-[15%]">
+        <div className="flex flex-col justify-center items-center h-[100%] p-2 group hover:bg-[#a0785e]  hover:shadow-xl   z-2 ">
           <Image
             src="/images/home/2nd.svg"
             height={40}
@@ -85,6 +89,7 @@ export default async function Index() {
             Sell Harvest
           </p>
         </div>
+        </Link>
         <Link href={"/dashboard/contract/create"} className="w-[15%]">
           <div className="flex flex-col justify-center items-center p-2 group h-full hover:bg-[#a0785e]  hover:shadow-lg ">
             <Image
@@ -99,7 +104,8 @@ export default async function Index() {
             </p>
           </div>
         </Link>
-        <div className="flex flex-col justify-center items-center w-[15%] h-[100%] p-2 group hover:bg-[#a0785e]  hover:shadow-lg ">
+        <Link href={"/coming"} className="w-[15%]">
+        <div className="flex flex-col justify-center items-center h-[100%] p-2 group hover:bg-[#a0785e]  hover:shadow-lg ">
           <Image
             src="/images/home/coins.svg"
             height={40}
@@ -111,7 +117,9 @@ export default async function Index() {
             payments
           </p>
         </div>
-        <div className="flex flex-col justify-center items-center w-[15%] h-[100%] p-2 mr-[10vw] group hover:bg-[#a0785e]  hover:shadow-lg">
+        </Link>
+        <Link href={"/map"} className="w-[15%]">
+        <div className="flex flex-col justify-center items-center h-[100%] p-2 group hover:bg-[#a0785e]  hover:shadow-lg">
           <Image
             src="/images/home/trailer.svg"
             height={40}
@@ -123,7 +131,9 @@ export default async function Index() {
             Logistics & Storage
           </p>
         </div>
+        </Link>
       </div>
+      
       <div className="h-[90vh] bg-[#f4e9dc] px-10">
         <MapComponent />
       </div>
